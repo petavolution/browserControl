@@ -1,0 +1,17 @@
+{
+    "workflow_type": "GoogleSearchModule",
+    "start_time": 1748096046.5404117,
+    "params": {
+        "query": "python programming",
+        "profile": "default",
+        "max_results": 3,
+        "operation": "search"
+    },
+    "success": false,
+    "errors": [],
+    "execution_time": 29.062017917633057,
+    "error": "Google search failed: HTTPConnectionPool(host='localhost', port=47725): Max retries exceeded with url: /session/e022bdc80a7f8e95a796d55d65d18ce5/url (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f91eadf16a0>: Failed to establish a new connection: [Errno 111] Connection refused'))",
+    "current_url": "https://www.google.com/sorry/index?continue=https://www.google.com/search%3Fq%3Dmeta%2520daten%2520ki%2520training%26oq%26ved%3D0ahUKEwj-8NefpbyNAxW1wAIHHXERBcEQ470GCB4%26sclient%3Dmweb-insp%26gs_lp%3DEgltd2ViLWluc3AqDwgCEAAYAxjqAhiPARiWBDINEAAYAxjqAhiPARiWBDINEC4YAxjqAhiPARiWBDINEAAYAxjqAhiPARiWBDINEAAYAxjqAhiPARiWBDINEAAYAxjqAhiPARiWBDINEAAYAxjqAhiPARiWBDINEAAYAxjqAhiPARiWBLgBGZgDrwmyBgYQKRgpKAE%26gs_ss%3D1%26biw%3D1912%26bih%3D981%26dpr%3D1.75%26sei%3DN9QxaK2TLe-ci-gPppCE6AQ&q=EgSV6TxOGLeox8EGIjCfVSQQplHttJ_nsLOvrrvAoZJpT7PJwKYanJM5KuV5iROtp6mCk6nEM_FolLKVn5AyAVJaAUM",
+    "error_code": null,
+    "data": null
+}

@@ -1,0 +1,1183 @@
+2025-05-24 16:11:06,431 | INFO     | info:56 | Executing search on google
+2025-05-24 16:11:06,455 | INFO     | info:56 | Successfully loaded selectors for Google from /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/google_selectors.json
+2025-05-24 16:11:06,455 | INFO     | info:56 | GoogleSearchModule initialized. Site config name: Google
+2025-05-24 16:11:06,455 | INFO     | info:56 | Starting GoogleSearchModule workflow
+2025-05-24 16:11:06,455 | ERROR    | error:64 | Workflow exception: GoogleSearchModule.search() got multiple values for argument 'query'
+2025-05-24 16:11:26,118 | INFO     | info:56 | Executing search on google
+2025-05-24 16:11:26,139 | INFO     | info:56 | Successfully loaded selectors for Google from /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/google_selectors.json
+2025-05-24 16:11:26,139 | INFO     | info:56 | GoogleSearchModule initialized. Site config name: Google
+2025-05-24 16:11:26,140 | INFO     | info:56 | Starting GoogleSearchModule workflow
+2025-05-24 16:11:26,140 | ERROR    | error:64 | Workflow exception: 'SystemConfig' object has no attribute 'default_profile_name'
+2025-05-24 16:12:41,805 | INFO     | info:56 | Executing search on google
+2025-05-24 16:12:41,829 | INFO     | info:56 | Successfully loaded selectors for Google from /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/google_selectors.json
+2025-05-24 16:12:41,829 | INFO     | info:56 | GoogleSearchModule initialized. Site config name: Google
+2025-05-24 16:12:41,829 | INFO     | info:56 | Starting GoogleSearchModule workflow
+2025-05-24 16:12:41,830 | INFO     | info:56 | Launching stealth browser
+2025-05-24 16:12:42,894 | WARNING  | warning:60 | Basic stealth is enabled in config, but BasicStealthManager is not available.
+2025-05-24 16:12:42,895 | INFO     | info:56 | Stealth browser launched successfully
+2025-05-24 16:12:42,961 | INFO     | info:56 | Browser session cleaned up
+2025-05-24 16:12:42,961 | ERROR    | error:64 | Google search workflow failed: 'SystemConfig' object has no attribute 'max_retry_attempts'
+Traceback (most recent call last):
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/google.py", line 49, in search
+    if not self._navigate_to_google(driver):
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/google.py", line 106, in _navigate_to_google
+    return self.navigate_to_site(driver) # Uses self.site_config.base_url
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/base_site.py", line 121, in navigate_to_site
+    return self.navigate_with_retry(driver, url)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/workflows/base_workflow.py", line 106, in navigate_with_retry
+    return self.browser_manager.navigate_to(url)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/core/stealth_browser.py", line 102, in navigate_to
+    retries = max_retries or self.config.max_retry_attempts
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SystemConfig' object has no attribute 'max_retry_attempts'. Did you mean: 'default_retry_attempts'?
+2025-05-24 16:12:42,965 | ERROR    | error:64 | Google Error: Google search failed: 'SystemConfig' object has no attribute 'max_retry_attempts' (URL: chrome://new-tab-page/)
+2025-05-24 16:12:42,965 | ERROR    | error:64 | Workflow failed: 
+2025-05-24 16:12:56,484 | INFO     | info:56 | Executing search on google
+2025-05-24 16:12:56,506 | INFO     | info:56 | Successfully loaded selectors for Google from /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/google_selectors.json
+2025-05-24 16:12:56,506 | INFO     | info:56 | GoogleSearchModule initialized. Site config name: Google
+2025-05-24 16:12:56,506 | INFO     | info:56 | Starting GoogleSearchModule workflow
+2025-05-24 16:12:56,506 | INFO     | info:56 | Launching stealth browser
+2025-05-24 16:12:57,501 | WARNING  | warning:60 | Basic stealth is enabled in config, but BasicStealthManager is not available.
+2025-05-24 16:12:57,502 | INFO     | info:56 | Stealth browser launched successfully
+2025-05-24 16:12:58,029 | INFO     | info:56 | Successfully navigated to https://www.google.com
+2025-05-24 16:13:23,223 | WARNING  | warning:60 | Element 'Google_consent_page_dialog_identifier_selector_attempt0' NOT FOUND with params: {'css': "form[action*='UpdateConsent']"} within the given context.
+2025-05-24 16:13:23,223 | INFO     | info:56 | Consent dialog identifier not found via find_site_element. Assuming no popup or already handled.
+2025-05-24 16:13:23,225 | INFO     | info:56 | Performing Google search for: python programming
+2025-05-24 16:13:43,820 | INFO     | info:56 | Element 'Google_search_page_search_input_selectors_attempt0' found using direct_selector:css ('css=textarea[name='q']')
+2025-05-24 16:13:43,880 | INFO     | info:56 | Found site element 'Google_search_page_search_input_selectors' using selector item: textarea[name='q'] (Strategy: direct_selector:css)
+2025-05-24 16:13:43,880 | INFO     | info:56 | Found Google search input with key 'search_input_selectors'. Matched selector: css=textarea[name='q']
+2025-05-24 16:13:48,357 | WARNING  | warning:60 | Element 'Google_search_page_search_button_after_type_selectors_attempt0' NOT FOUND with params: {'css': "xpath:(//form[@role='search']//button[@aria-label='Google Search' and @type='submit'])[1]"} within the given context.
+2025-05-24 16:13:48,369 | WARNING  | warning:60 | Element 'Google_search_page_search_button_after_type_selectors_attempt1' NOT FOUND with params: {'css': "xpath:(//input[@name='btnK' and @role='button'])[1]"} within the given context.
+2025-05-24 16:13:48,370 | INFO     | info:56 | Browser session cleaned up
+2025-05-24 16:13:48,370 | ERROR    | error:64 | Google search workflow failed: cannot access local variable 'submitted_by_click' where it is not associated with a value
+Traceback (most recent call last):
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/google.py", line 57, in search
+    if not self._perform_search_action(driver, query):
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/google.py", line 212, in _perform_search_action
+    if not submitted_by_click:
+           ^^^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'submitted_by_click' where it is not associated with a value
+2025-05-24 16:13:48,372 | ERROR    | error:64 | Google Error: Google search failed: cannot access local variable 'submitted_by_click' where it is not associated with a value (URL: https://www.google.com/sorry/index?continue=https://www.google.com/search%3Fq%3Dmind%26sca_esv%3D6395ac19ef49f089%26source%3Dhp%26ei%3D6dMxaMzQJKGIi-gPy7LsiQc%26oq%3Dmind%26gs_lp%3DEhFtb2JpbGUtZ3dzLXdpei1ocCIEbWluZDIIEAAYgAQYsQMyCBAAGIAEGLEDMg4QLhiABBixAxjRAxjHATIFEAAYgAQyCBAuGIAEGLEDMggQABiABBixAzILEC4YgAQYsQMYgwEyCBAuGIAEGLEDSNk9UM8yWKA5cAJ4AJABAJgBS6AB8gGqAQE0uAEDyAEA-AEBmAIGoAKBAqgCD8ICChAAGAMY6gIYjwHCAgoQLhgDGOoCGI8BwgIOEAAYgAQYsQMYgwEYigXCAhEQLhiABBixAxjRAxiDARjHAcICCxAAGIAEGLEDGIMBwgIOEC4YgAQYsQMYgwEYigXCAhEQLhiABBixAxiDARjUAhiKBcICDhAuGIAEGLEDGIMBGNQCwgIFEC4YgATCAgsQABiABBiSAxi4BMICCBAAGIAEGJIDwgIOEC4YgAQYxwEYjgUYrwGYAwXxBWQFlFZ_BhRjkgcBNqAH4DKyBwE0uAf5AcIHBTAuNS4xyAcN%26sclient%3Dmobile-gws-wiz-hp%26sei%3D_9MxaMX_NdbYi-gP1u_D4Qc&q=EgSV6TxOGICox8EGIjAX6pYKUc-5nuoJUm-tGmaE0Ktg30hEN3edJfNI3oLIlDAMiR3qowEdEPy53e74pFAyAVJaAUM)
+2025-05-24 16:13:48,372 | ERROR    | error:64 | Workflow failed: 
+2025-05-24 16:14:06,512 | INFO     | info:56 | Executing search on google
+2025-05-24 16:14:06,540 | INFO     | info:56 | Successfully loaded selectors for Google from /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/google_selectors.json
+2025-05-24 16:14:06,540 | INFO     | info:56 | GoogleSearchModule initialized. Site config name: Google
+2025-05-24 16:14:06,540 | INFO     | info:56 | Starting GoogleSearchModule workflow
+2025-05-24 16:14:06,540 | INFO     | info:56 | Launching stealth browser
+2025-05-24 16:14:07,674 | WARNING  | warning:60 | Basic stealth is enabled in config, but BasicStealthManager is not available.
+2025-05-24 16:14:07,676 | INFO     | info:56 | Stealth browser launched successfully
+2025-05-24 16:14:08,236 | INFO     | info:56 | Successfully navigated to https://www.google.com
+2025-05-24 16:14:31,884 | WARNING  | warning:60 | Element 'Google_consent_page_dialog_identifier_selector_attempt0' NOT FOUND with params: {'css': "form[action*='UpdateConsent']"} within the given context.
+2025-05-24 16:14:31,884 | INFO     | info:56 | Consent dialog identifier not found via find_site_element. Assuming no popup or already handled.
+2025-05-24 16:14:31,886 | INFO     | info:56 | Performing Google search for: python programming
+2025-05-24 16:14:32,580 | WARNING  | warning:60 | Element 'Google_search_page_search_input_selectors_attempt0' NOT FOUND with params: {'css': "textarea[name='q']"} within the given context.
+2025-05-24 16:14:33,082 | WARNING  | warning:60 | Element 'Google_search_page_search_input_selectors_attempt0' NOT FOUND with params: {'css': "textarea[name='q']"} within the given context.
+2025-05-24 16:14:33,083 | WARNING  | warning:60 | Element 'Google_search_page_search_input_selectors_attempt1' NOT FOUND with params: {'css': "input[name='q']"} within the given context.
+2025-05-24 16:14:33,585 | WARNING  | warning:60 | Element 'Google_search_page_search_input_selectors_attempt1' NOT FOUND with params: {'css': "input[name='q']"} within the given context.
+2025-05-24 16:14:33,586 | WARNING  | warning:60 | Element 'Google_search_page_search_input_selectors_attempt2' NOT FOUND with params: {'css': "input[title='Search']"} within the given context.
+2025-05-24 16:14:34,087 | WARNING  | warning:60 | Element 'Google_search_page_search_input_selectors_attempt2' NOT FOUND with params: {'css': "input[title='Search']"} within the given context.
+2025-05-24 16:14:34,089 | WARNING  | warning:60 | Element 'Google_search_page_search_input_selectors_attempt3' NOT FOUND with params: {'css': "textarea[title='Search']"} within the given context.
+2025-05-24 16:14:34,590 | WARNING  | warning:60 | Element 'Google_search_page_search_input_selectors_attempt3' NOT FOUND with params: {'css': "textarea[title='Search']"} within the given context.
+2025-05-24 16:14:34,591 | WARNING  | warning:60 | Element 'Google_search_page_search_input_selectors_attempt4' NOT FOUND with params: {'css': "input[aria-label='Search']"} within the given context.
+2025-05-24 16:14:35,092 | WARNING  | warning:60 | Element 'Google_search_page_search_input_selectors_attempt4' NOT FOUND with params: {'css': "input[aria-label='Search']"} within the given context.
+2025-05-24 16:14:35,094 | WARNING  | warning:60 | Element 'Google_search_page_search_input_selectors_attempt5' NOT FOUND with params: {'css': "textarea[aria-label='Search']"} within the given context.
+2025-05-24 16:14:35,595 | WARNING  | warning:60 | Element 'Google_search_page_search_input_selectors_attempt5' NOT FOUND with params: {'css': "textarea[aria-label='Search']"} within the given context.
+2025-05-24 16:14:35,595 | WARNING  | warning:60 | Site element 'Google_search_page_search_input_selectors' not found with any of the provided selectors: ["textarea[name='q']", "input[name='q']", "input[title='Search']", "textarea[title='Search']", "input[aria-label='Search']", "textarea[aria-label='Search']"]
+2025-05-24 16:14:35,596 | INFO     | info:56 | Browser session cleaned up
+2025-05-24 16:14:35,596 | ERROR    | error:64 | Google search workflow failed: HTTPConnectionPool(host='localhost', port=47725): Max retries exceeded with url: /session/e022bdc80a7f8e95a796d55d65d18ce5/url (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f91eadf16a0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+Traceback (most recent call last):
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/urllib3/connection.py", line 198, in _new_conn
+    sock = connection.create_connection(
+        (self._dns_host, self.port),
+    ...<2 lines>...
+        socket_options=self.socket_options,
+    )
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/urllib3/util/connection.py", line 85, in create_connection
+    raise err
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/urllib3/util/connection.py", line 73, in create_connection
+    sock.connect(sa)
+    ~~~~~~~~~~~~^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 787, in urlopen
+    response = self._make_request(
+        conn,
+    ...<10 lines>...
+        **response_kw,
+    )
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 493, in _make_request
+    conn.request(
+    ~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<6 lines>...
+        enforce_content_length=enforce_content_length,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/urllib3/connection.py", line 445, in request
+    self.endheaders()
+    ~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/http/client.py", line 1333, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.13/http/client.py", line 1093, in _send_output
+    self.send(msg)
+    ~~~~~~~~~^^^^^
+  File "/usr/lib/python3.13/http/client.py", line 1037, in send
+    self.connect()
+    ~~~~~~~~~~~~^^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/urllib3/connection.py", line 276, in connect
+    self.sock = self._new_conn()
+                ~~~~~~~~~~~~~~^^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/urllib3/connection.py", line 213, in _new_conn
+    raise NewConnectionError(
+        self, f"Failed to establish a new connection: {e}"
+    ) from e
+urllib3.exceptions.NewConnectionError: <urllib3.connection.HTTPConnection object at 0x7f91eadf16a0>: Failed to establish a new connection: [Errno 111] Connection refused
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/google.py", line 58, in search
+    return self._create_error_result(error_message="Failed to perform search action", current_url=driver.current_url)
+                                                                                                  ^^^^^^^^^^^^^^^^^^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/undetected_chromedriver/__init__.py", line 806, in __getattribute__
+    return super().__getattribute__(item)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/selenium/webdriver/remote/webdriver.py", line 579, in current_url
+    return self.execute(Command.GET_CURRENT_URL)["value"]
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/selenium/webdriver/remote/webdriver.py", line 446, in execute
+    response = self.command_executor.execute(driver_command, params)
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/selenium/webdriver/remote/remote_connection.py", line 404, in execute
+    return self._request(command_info[0], url, body=data)
+           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/selenium/webdriver/remote/remote_connection.py", line 428, in _request
+    response = self._conn.request(method, url, body=body, headers=headers, timeout=self._client_config.timeout)
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/urllib3/_request_methods.py", line 135, in request
+    return self.request_encode_url(
+           ~~~~~~~~~~~~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<3 lines>...
+        **urlopen_kw,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/urllib3/_request_methods.py", line 182, in request_encode_url
+    return self.urlopen(method, url, **extra_kw)
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/urllib3/poolmanager.py", line 443, in urlopen
+    response = conn.urlopen(method, u.request_uri, **kw)
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<13 lines>...
+        **response_kw,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<13 lines>...
+        **response_kw,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 871, in urlopen
+    return self.urlopen(
+           ~~~~~~~~~~~~^
+        method,
+        ^^^^^^^
+    ...<13 lines>...
+        **response_kw,
+        ^^^^^^^^^^^^^^
+    )
+    ^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/urllib3/connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/venv/lib/python3.13/site-packages/urllib3/util/retry.py", line 519, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPConnectionPool(host='localhost', port=47725): Max retries exceeded with url: /session/e022bdc80a7f8e95a796d55d65d18ce5/url (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f91eadf16a0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+2025-05-24 16:14:35,602 | ERROR    | error:64 | Google Error: Google search failed: HTTPConnectionPool(host='localhost', port=47725): Max retries exceeded with url: /session/e022bdc80a7f8e95a796d55d65d18ce5/url (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f91eadf16a0>: Failed to establish a new connection: [Errno 111] Connection refused')) (URL: https://www.google.com/sorry/index?continue=https://www.google.com/search%3Fq%3Dmeta%2520daten%2520ki%2520training%26oq%26ved%3D0ahUKEwj-8NefpbyNAxW1wAIHHXERBcEQ470GCB4%26sclient%3Dmweb-insp%26gs_lp%3DEgltd2ViLWluc3AqDwgCEAAYAxjqAhiPARiWBDINEAAYAxjqAhiPARiWBDINEC4YAxjqAhiPARiWBDINEAAYAxjqAhiPARiWBDINEAAYAxjqAhiPARiWBDINEAAYAxjqAhiPARiWBDINEAAYAxjqAhiPARiWBDINEAAYAxjqAhiPARiWBLgBGZgDrwmyBgYQKRgpKAE%26gs_ss%3D1%26biw%3D1912%26bih%3D981%26dpr%3D1.75%26sei%3DN9QxaK2TLe-ci-gPppCE6AQ&q=EgSV6TxOGLeox8EGIjCfVSQQplHttJ_nsLOvrrvAoZJpT7PJwKYanJM5KuV5iROtp6mCk6nEM_FolLKVn5AyAVJaAUM)
+2025-05-24 16:14:35,602 | ERROR    | error:64 | Workflow failed: 
+2025-05-25 04:44:38,441 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 04:44:38,441 | INFO     | info:56 | Wikipedia command initiated with query: Biology
+2025-05-25 04:44:38,441 | INFO     | info:56 | Executing get_data on wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None}
+2025-05-25 04:44:38,441 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 04:44:38,441 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/bot-profiles/default
+2025-05-25 04:44:38,441 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 04:44:39,513 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 04:44:39,513 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 04:44:39,514 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 04:44:39,514 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 04:44:39,514 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: 4).
+2025-05-25 04:44:39,514 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: 4).
+2025-05-25 04:44:39,514 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 04:44:39,514 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 04:44:39,514 | INFO     | info:56 | Generating JS for Canvas fingerprinting noise.
+2025-05-25 04:44:39,514 | INFO     | info:56 | Generating JS for AudioContext fingerprinting noise.
+2025-05-25 04:44:39,514 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 04:44:39,514 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 04:44:39,580 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 04:44:39,581 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 04:44:39,582 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 04:44:39,592 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 04:44:39,599 | INFO     | info:56 | Injecting JS script: canvas_noise
+2025-05-25 04:44:39,626 | INFO     | info:56 | Injecting JS script: audiocontext_noise
+2025-05-25 04:44:39,627 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 04:44:39,628 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 04:44:39,631 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 04:45:03,068 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 04:45:03,068 | INFO     | info:56 | Wikipedia command initiated with query: Biology
+2025-05-25 04:45:03,068 | INFO     | info:56 | Executing get_data on wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None}
+2025-05-25 04:45:03,068 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 04:45:03,068 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/bot-profiles/default
+2025-05-25 04:45:03,068 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 04:45:04,149 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 04:45:04,149 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 04:45:04,149 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 04:45:04,149 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 04:45:04,149 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: 2).
+2025-05-25 04:45:04,149 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: 16).
+2025-05-25 04:45:04,149 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 04:45:04,149 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 04:45:04,150 | INFO     | info:56 | Generating JS for Canvas fingerprinting noise.
+2025-05-25 04:45:04,150 | INFO     | info:56 | Generating JS for AudioContext fingerprinting noise.
+2025-05-25 04:45:04,150 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 04:45:04,150 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 04:45:04,230 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 04:45:04,248 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 04:45:04,257 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 04:45:04,259 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 04:45:04,261 | INFO     | info:56 | Injecting JS script: canvas_noise
+2025-05-25 04:45:04,262 | INFO     | info:56 | Injecting JS script: audiocontext_noise
+2025-05-25 04:45:04,263 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 04:45:04,264 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 04:45:04,265 | ERROR    | error:64 | System critical failure: SiteConfig.__init__() got an unexpected keyword argument 'default_profile_name'
+Traceback (most recent call last):
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/main.py", line 532, in main
+    result = system.execute_site_workflow(
+        site_name='wikipedia',
+    ...<5 lines>...
+        # profile argument is handled by execute_site_workflow internally via global args.profile / system.config
+    )
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/main.py", line 257, in execute_site_workflow
+    current_site_config = SiteConfig(
+        name=site_params.get('name', site_name.capitalize()),
+    ...<3 lines>...
+        custom_params=site_params.get('custom_params', {})
+    )
+TypeError: SiteConfig.__init__() got an unexpected keyword argument 'default_profile_name'
+2025-05-25 04:45:04,269 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 04:45:22,234 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 04:45:22,234 | INFO     | info:56 | Wikipedia command initiated with query: Biology
+2025-05-25 04:45:22,234 | INFO     | info:56 | Executing get_data on wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None}
+2025-05-25 04:45:22,234 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 04:45:22,234 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/bot-profiles/default
+2025-05-25 04:45:22,234 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 04:45:23,311 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 04:45:23,311 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 04:45:23,311 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 04:45:23,311 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 04:45:23,311 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: 8).
+2025-05-25 04:45:23,311 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: 16).
+2025-05-25 04:45:23,311 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 04:45:23,311 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 04:45:23,312 | INFO     | info:56 | Generating JS for Canvas fingerprinting noise.
+2025-05-25 04:45:23,312 | INFO     | info:56 | Generating JS for AudioContext fingerprinting noise.
+2025-05-25 04:45:23,312 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 04:45:23,312 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 04:45:23,364 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 04:45:23,378 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 04:45:23,399 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 04:45:23,407 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 04:45:23,408 | INFO     | info:56 | Injecting JS script: canvas_noise
+2025-05-25 04:45:23,410 | INFO     | info:56 | Injecting JS script: audiocontext_noise
+2025-05-25 04:45:23,412 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 04:45:23,413 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 04:45:23,413 | INFO     | info:56 | Constructed SiteConfig for 'wikipedia': URL='https://www.wikipedia.org', Selectors='None'
+2025-05-25 04:45:23,413 | WARNING  | warning:60 | Site module 'wikipedia' not found in registry.
+2025-05-25 04:45:23,413 | ERROR    | error:64 | ❌ Wikipedia workflow failed. Error: Unsupported site: wikipedia
+2025-05-25 04:45:23,418 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 04:45:52,211 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 04:45:52,211 | INFO     | info:56 | Wikipedia command initiated with query: Biology
+2025-05-25 04:45:52,211 | INFO     | info:56 | Executing get_data on wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None}
+2025-05-25 04:45:52,211 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 04:45:52,211 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/bot-profiles/default
+2025-05-25 04:45:52,212 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 04:45:53,307 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 04:45:53,307 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 04:45:53,307 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 04:45:53,307 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 04:45:53,307 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: 8).
+2025-05-25 04:45:53,307 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: 2).
+2025-05-25 04:45:53,307 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 04:45:53,307 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 04:45:53,307 | INFO     | info:56 | Generating JS for Canvas fingerprinting noise.
+2025-05-25 04:45:53,308 | INFO     | info:56 | Generating JS for AudioContext fingerprinting noise.
+2025-05-25 04:45:53,308 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 04:45:53,308 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 04:45:53,376 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 04:45:53,378 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 04:45:53,379 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 04:45:53,380 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 04:45:53,381 | INFO     | info:56 | Injecting JS script: canvas_noise
+2025-05-25 04:45:53,382 | INFO     | info:56 | Injecting JS script: audiocontext_noise
+2025-05-25 04:45:53,394 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 04:45:53,415 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 04:45:53,416 | INFO     | info:56 | Constructed SiteConfig for 'wikipedia': URL='https://www.wikipedia.org', Selectors='None'
+2025-05-25 04:45:53,416 | ERROR    | error:64 | System critical failure: SiteRegistry.get_module() missing 1 required positional argument: 'site_name'
+Traceback (most recent call last):
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/main.py", line 531, in main
+    result = system.execute_site_workflow(
+        site_name='wikipedia',
+    ...<5 lines>...
+        # profile argument is handled by execute_site_workflow internally via global args.profile / system.config
+    )
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/main.py", line 268, in execute_site_workflow
+    site_module_instance = site_registry.get_module(
+        name=site_name,
+    ...<3 lines>...
+        site_config=current_site_config # Pass the (optional) SiteConfig instance
+    )
+TypeError: SiteRegistry.get_module() missing 1 required positional argument: 'site_name'
+2025-05-25 04:45:53,426 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 04:46:10,309 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 04:46:10,309 | INFO     | info:56 | Wikipedia command initiated with query: Biology
+2025-05-25 04:46:10,309 | INFO     | info:56 | Executing get_data on wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None}
+2025-05-25 04:46:10,309 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 04:46:10,309 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/bot-profiles/default
+2025-05-25 04:46:10,309 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 04:46:11,453 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 04:46:11,453 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 04:46:11,453 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 04:46:11,453 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 04:46:11,453 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: 2).
+2025-05-25 04:46:11,453 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: 2).
+2025-05-25 04:46:11,453 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 04:46:11,453 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 04:46:11,453 | INFO     | info:56 | Generating JS for Canvas fingerprinting noise.
+2025-05-25 04:46:11,453 | INFO     | info:56 | Generating JS for AudioContext fingerprinting noise.
+2025-05-25 04:46:11,454 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 04:46:11,454 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 04:46:11,520 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 04:46:11,521 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 04:46:11,522 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 04:46:11,524 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 04:46:11,525 | INFO     | info:56 | Injecting JS script: canvas_noise
+2025-05-25 04:46:11,527 | INFO     | info:56 | Injecting JS script: audiocontext_noise
+2025-05-25 04:46:11,528 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 04:46:11,529 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 04:46:11,529 | INFO     | info:56 | Constructed SiteConfig for 'wikipedia': URL='https://www.wikipedia.org', Selectors='None'
+2025-05-25 04:46:11,529 | ERROR    | error:64 | System critical failure: Can't instantiate abstract class WikipediaSiteModule without an implementation for abstract method 'search'
+Traceback (most recent call last):
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/main.py", line 531, in main
+    result = system.execute_site_workflow(
+        site_name='wikipedia',
+    ...<5 lines>...
+        # profile argument is handled by execute_site_workflow internally via global args.profile / system.config
+    )
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/main.py", line 268, in execute_site_workflow
+    site_module_instance = site_registry.get_module(
+        site_name,  # Pass site_name directly as the first argument
+    ...<3 lines>...
+        site_config=current_site_config # Pass the (optional) SiteConfig instance
+    )
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/base_site.py", line 341, in get_module
+    return module_class(**kwargs)
+TypeError: Can't instantiate abstract class WikipediaSiteModule without an implementation for abstract method 'search'
+2025-05-25 04:46:11,545 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 04:46:51,641 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 04:46:51,641 | INFO     | info:56 | Wikipedia command initiated with query: Biology
+2025-05-25 04:46:51,641 | INFO     | info:56 | Executing get_data on wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None}
+2025-05-25 04:46:51,641 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 04:46:51,641 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/bot-profiles/default
+2025-05-25 04:46:51,641 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 04:46:52,715 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 04:46:52,716 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 04:46:52,716 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 04:46:52,716 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 04:46:52,716 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: 8).
+2025-05-25 04:46:52,716 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: 2).
+2025-05-25 04:46:52,716 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 04:46:52,716 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 04:46:52,716 | INFO     | info:56 | Generating JS for Canvas fingerprinting noise.
+2025-05-25 04:46:52,716 | INFO     | info:56 | Generating JS for AudioContext fingerprinting noise.
+2025-05-25 04:46:52,716 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 04:46:52,716 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 04:46:52,785 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 04:46:52,792 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 04:46:52,818 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 04:46:52,819 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 04:46:52,820 | INFO     | info:56 | Injecting JS script: canvas_noise
+2025-05-25 04:46:52,821 | INFO     | info:56 | Injecting JS script: audiocontext_noise
+2025-05-25 04:46:52,822 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 04:46:52,823 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 04:46:52,823 | INFO     | info:56 | Constructed SiteConfig for 'wikipedia': URL='https://www.wikipedia.org', Selectors='None'
+2025-05-25 04:46:52,845 | WARNING  | warning:60 | Selector file not found: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/wikipedia_selectors.json. No site-specific selectors loaded for Wikipedia.
+2025-05-25 04:46:52,845 | INFO     | info:56 | BaseSiteModule for Wikipedia initialized with a managed WebDriver.
+2025-05-25 04:46:52,845 | ERROR    | error:64 | System critical failure: name 'HumanBehaviorEngine' is not defined
+Traceback (most recent call last):
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/main.py", line 531, in main
+    result = system.execute_site_workflow(
+        site_name='wikipedia',
+    ...<5 lines>...
+        # profile argument is handled by execute_site_workflow internally via global args.profile / system.config
+    )
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/main.py", line 268, in execute_site_workflow
+    site_module_instance = site_registry.get_module(
+        site_name,  # Pass site_name directly as the first argument
+    ...<3 lines>...
+        site_config=current_site_config # Pass the (optional) SiteConfig instance
+    )
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/base_site.py", line 354, in get_module
+    return module_class(**kwargs)
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/wikipedia.py", line 67, in __init__
+    super().__init__(driver=driver, config=config, logger=logger, site_config=site_config, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/base_site.py", line 31, in __init__
+    self.behavior = HumanBehaviorEngine(config=config, logger=logger, driver=driver) if driver else None
+                    ^^^^^^^^^^^^^^^^^^^
+NameError: name 'HumanBehaviorEngine' is not defined
+2025-05-25 04:46:52,851 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 04:47:05,988 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 04:47:05,988 | INFO     | info:56 | Wikipedia command initiated with query: Biology
+2025-05-25 04:47:05,988 | INFO     | info:56 | Executing get_data on wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None}
+2025-05-25 04:47:05,988 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 04:47:05,988 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/bot-profiles/default
+2025-05-25 04:47:05,988 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 04:47:07,062 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 04:47:07,063 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 04:47:07,063 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 04:47:07,063 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 04:47:07,063 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: 8).
+2025-05-25 04:47:07,063 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: 8).
+2025-05-25 04:47:07,063 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 04:47:07,063 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 04:47:07,063 | INFO     | info:56 | Generating JS for Canvas fingerprinting noise.
+2025-05-25 04:47:07,063 | INFO     | info:56 | Generating JS for AudioContext fingerprinting noise.
+2025-05-25 04:47:07,063 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 04:47:07,063 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 04:47:07,126 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 04:47:07,136 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 04:47:07,155 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 04:47:07,164 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 04:47:07,165 | INFO     | info:56 | Injecting JS script: canvas_noise
+2025-05-25 04:47:07,166 | INFO     | info:56 | Injecting JS script: audiocontext_noise
+2025-05-25 04:47:07,167 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 04:47:07,168 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 04:47:07,168 | INFO     | info:56 | Constructed SiteConfig for 'wikipedia': URL='https://www.wikipedia.org', Selectors='None'
+2025-05-25 04:47:07,189 | WARNING  | warning:60 | Selector file not found: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/wikipedia_selectors.json. No site-specific selectors loaded for Wikipedia.
+2025-05-25 04:47:07,189 | INFO     | info:56 | BaseSiteModule for Wikipedia initialized with a managed WebDriver.
+2025-05-25 04:47:07,189 | ERROR    | error:64 | System critical failure: HumanBehaviorEngine.__init__() got an unexpected keyword argument 'driver'
+Traceback (most recent call last):
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/main.py", line 531, in main
+    result = system.execute_site_workflow(
+        site_name='wikipedia',
+    ...<5 lines>...
+        # profile argument is handled by execute_site_workflow internally via global args.profile / system.config
+    )
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/main.py", line 268, in execute_site_workflow
+    site_module_instance = site_registry.get_module(
+        site_name,  # Pass site_name directly as the first argument
+    ...<3 lines>...
+        site_config=current_site_config # Pass the (optional) SiteConfig instance
+    )
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/base_site.py", line 356, in get_module
+    return module_class(**kwargs)
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/wikipedia.py", line 67, in __init__
+    super().__init__(driver=driver, config=config, logger=logger, site_config=site_config, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/base_site.py", line 33, in __init__
+    self.behavior = HumanBehaviorEngine(config=config, logger=logger, driver=driver) if driver else None
+                    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: HumanBehaviorEngine.__init__() got an unexpected keyword argument 'driver'
+2025-05-25 04:47:07,195 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 04:47:23,043 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 04:47:23,044 | INFO     | info:56 | Wikipedia command initiated with query: Biology
+2025-05-25 04:47:23,044 | INFO     | info:56 | Executing get_data on wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None}
+2025-05-25 04:47:23,044 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 04:47:23,044 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/bot-profiles/default
+2025-05-25 04:47:23,044 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 04:47:24,088 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 04:47:24,088 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 04:47:24,088 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 04:47:24,088 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 04:47:24,088 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: 16).
+2025-05-25 04:47:24,088 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: 4).
+2025-05-25 04:47:24,088 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 04:47:24,088 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 04:47:24,089 | INFO     | info:56 | Generating JS for Canvas fingerprinting noise.
+2025-05-25 04:47:24,089 | INFO     | info:56 | Generating JS for AudioContext fingerprinting noise.
+2025-05-25 04:47:24,089 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 04:47:24,089 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 04:47:24,138 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 04:47:24,139 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 04:47:24,140 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 04:47:24,141 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 04:47:24,142 | INFO     | info:56 | Injecting JS script: canvas_noise
+2025-05-25 04:47:24,154 | INFO     | info:56 | Injecting JS script: audiocontext_noise
+2025-05-25 04:47:24,159 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 04:47:24,182 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 04:47:24,183 | INFO     | info:56 | Constructed SiteConfig for 'wikipedia': URL='https://www.wikipedia.org', Selectors='None'
+2025-05-25 04:47:24,205 | WARNING  | warning:60 | Selector file not found: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/wikipedia_selectors.json. No site-specific selectors loaded for Wikipedia.
+2025-05-25 04:47:24,205 | INFO     | info:56 | BaseSiteModule for Wikipedia initialized with a managed WebDriver.
+2025-05-25 04:47:24,205 | INFO     | info:56 | WikipediaSiteModule initialized with managed WebDriver. Site: Wikipedia
+2025-05-25 04:47:24,205 | INFO     | info:56 | Starting WikipediaSiteModule workflow
+2025-05-25 04:47:24,205 | ERROR    | error:64 | Query parameter is required
+2025-05-25 04:47:24,205 | ERROR    | error:64 | Wikipedia Error: Parameter validation failed
+2025-05-25 04:47:24,206 | ERROR    | error:64 | ❌ Wikipedia workflow failed. Error: Parameter validation failed
+2025-05-25 04:47:24,209 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 04:53:46,423 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 04:53:46,423 | INFO     | info:56 | Wikipedia command initiated with query: Biology
+2025-05-25 04:53:46,424 | INFO     | info:56 | Executing get_data on wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None}
+2025-05-25 04:53:46,424 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 04:53:46,424 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/bot-profiles/default
+2025-05-25 04:53:46,424 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 04:53:47,468 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 04:53:47,468 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 04:53:47,468 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 04:53:47,468 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 04:53:47,468 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: 16).
+2025-05-25 04:53:47,468 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: 2).
+2025-05-25 04:53:47,468 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 04:53:47,468 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 04:53:47,468 | INFO     | info:56 | Generating JS for Canvas fingerprinting noise.
+2025-05-25 04:53:47,468 | INFO     | info:56 | Generating JS for AudioContext fingerprinting noise.
+2025-05-25 04:53:47,469 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 04:53:47,469 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 04:53:47,588 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 04:53:47,591 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 04:53:47,592 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 04:53:47,593 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 04:53:47,597 | INFO     | info:56 | Injecting JS script: canvas_noise
+2025-05-25 04:53:47,599 | INFO     | info:56 | Injecting JS script: audiocontext_noise
+2025-05-25 04:53:47,600 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 04:53:47,601 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 04:53:47,601 | INFO     | info:56 | Constructed SiteConfig for 'wikipedia': URL='https://www.wikipedia.org', Selectors='None'
+2025-05-25 04:53:47,624 | WARNING  | warning:60 | Selector file not found: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/wikipedia_selectors.json. No site-specific selectors loaded for Wikipedia.
+2025-05-25 04:53:47,625 | INFO     | info:56 | BaseSiteModule for Wikipedia initialized with a managed WebDriver.
+2025-05-25 04:53:47,625 | INFO     | info:56 | WikipediaSiteModule initialized with managed WebDriver. Site: Wikipedia
+2025-05-25 04:53:47,625 | INFO     | info:56 | Starting WikipediaSiteModule workflow
+2025-05-25 04:53:47,625 | INFO     | info:56 | Executing operation 'get_data' on Wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None}
+2025-05-25 04:53:47,625 | INFO     | info:56 | Wikipedia 'get_data' started. Query/URL: 'Biology', Extract Text: True, Download Images > 0px
+2025-05-25 04:53:47,647 | INFO     | info:56 | Navigating to Wikipedia URL: https://en.wikipedia.org/w/index.php?search=Biology
+2025-05-25 04:53:48,476 | INFO     | info:56 | Successfully navigated to: https://en.wikipedia.org/wiki/Biology
+2025-05-25 04:53:52,559 | INFO     | info:56 | Parsing text content and links from https://en.wikipedia.org/wiki/Biology...
+2025-05-25 04:53:52,672 | INFO     | info:56 | Found 0 sections with text and links.
+2025-05-25 04:53:52,674 | INFO     | info:56 | Workflow completed successfully in 5.05s
+2025-05-25 04:53:52,676 | INFO     | info:56 | ✅ Wikipedia workflow completed. Output path: None
+2025-05-25 04:53:52,677 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 04:54:07,808 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 04:54:07,809 | INFO     | info:56 | Wikipedia command initiated with query: Biology
+2025-05-25 04:54:07,809 | INFO     | info:56 | Executing get_data on wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None}
+2025-05-25 04:54:07,809 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 04:54:07,809 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/bot-profiles/default
+2025-05-25 04:54:07,809 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 04:54:08,906 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 04:54:08,906 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 04:54:08,906 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 04:54:08,906 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 04:54:08,906 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: 8).
+2025-05-25 04:54:08,906 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: 2).
+2025-05-25 04:54:08,906 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 04:54:08,906 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 04:54:08,906 | INFO     | info:56 | Generating JS for Canvas fingerprinting noise.
+2025-05-25 04:54:08,907 | INFO     | info:56 | Generating JS for AudioContext fingerprinting noise.
+2025-05-25 04:54:08,907 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 04:54:08,907 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 04:54:08,955 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 04:54:08,956 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 04:54:08,957 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 04:54:08,960 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 04:54:08,974 | INFO     | info:56 | Injecting JS script: canvas_noise
+2025-05-25 04:54:08,997 | INFO     | info:56 | Injecting JS script: audiocontext_noise
+2025-05-25 04:54:09,004 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 04:54:09,006 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 04:54:09,006 | INFO     | info:56 | Constructed SiteConfig for 'wikipedia': URL='https://www.wikipedia.org', Selectors='None'
+2025-05-25 04:54:09,030 | WARNING  | warning:60 | Selector file not found: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/wikipedia_selectors.json. No site-specific selectors loaded for Wikipedia.
+2025-05-25 04:54:09,030 | INFO     | info:56 | BaseSiteModule for Wikipedia initialized with a managed WebDriver.
+2025-05-25 04:54:09,031 | INFO     | info:56 | WikipediaSiteModule initialized with managed WebDriver. Site: Wikipedia
+2025-05-25 04:54:09,031 | INFO     | info:56 | Starting WikipediaSiteModule workflow
+2025-05-25 04:54:09,031 | INFO     | info:56 | Executing operation 'get_data' on Wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None}
+2025-05-25 04:54:09,031 | INFO     | info:56 | Wikipedia 'get_data' started. Query/URL: 'Biology', Extract Text: True, Download Images > 0px
+2025-05-25 04:54:09,033 | INFO     | info:56 | Navigating to Wikipedia URL: https://en.wikipedia.org/w/index.php?search=Biology
+2025-05-25 04:54:09,835 | INFO     | info:56 | Successfully navigated to: https://en.wikipedia.org/wiki/Biology
+2025-05-25 04:54:13,838 | INFO     | info:56 | DEBUG: Saved HTML content for Biology page to /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/_debug_biology_page.html
+2025-05-25 04:54:13,838 | INFO     | info:56 | Parsing text content and links from https://en.wikipedia.org/wiki/Biology...
+2025-05-25 04:54:13,952 | INFO     | info:56 | Found 0 sections with text and links.
+2025-05-25 04:54:13,955 | INFO     | info:56 | Workflow completed successfully in 4.92s
+2025-05-25 04:54:13,956 | INFO     | info:56 | ✅ Wikipedia workflow completed. Output path: None
+2025-05-25 04:54:13,958 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 04:56:53,763 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 04:56:53,763 | INFO     | info:56 | Wikipedia command initiated with query: Biology
+2025-05-25 04:56:53,763 | INFO     | info:56 | Executing get_data on wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None}
+2025-05-25 04:56:53,763 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 04:56:53,763 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/bot-profiles/default
+2025-05-25 04:56:53,763 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 04:56:54,871 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 04:56:54,872 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 04:56:54,872 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 04:56:54,872 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 04:56:54,872 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: 4).
+2025-05-25 04:56:54,872 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: 8).
+2025-05-25 04:56:54,872 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 04:56:54,872 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 04:56:54,873 | INFO     | info:56 | Generating JS for Canvas fingerprinting noise.
+2025-05-25 04:56:54,873 | INFO     | info:56 | Generating JS for AudioContext fingerprinting noise.
+2025-05-25 04:56:54,873 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 04:56:54,873 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 04:56:54,944 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 04:56:54,963 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 04:56:54,970 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 04:56:54,973 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 04:56:54,974 | INFO     | info:56 | Injecting JS script: canvas_noise
+2025-05-25 04:56:54,976 | INFO     | info:56 | Injecting JS script: audiocontext_noise
+2025-05-25 04:56:54,977 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 04:56:54,978 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 04:56:54,978 | INFO     | info:56 | Constructed SiteConfig for 'wikipedia': URL='https://www.wikipedia.org', Selectors='None'
+2025-05-25 04:56:55,001 | WARNING  | warning:60 | Selector file not found: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/wikipedia_selectors.json. No site-specific selectors loaded for Wikipedia.
+2025-05-25 04:56:55,001 | INFO     | info:56 | BaseSiteModule for Wikipedia initialized with a managed WebDriver.
+2025-05-25 04:56:55,001 | INFO     | info:56 | WikipediaSiteModule initialized with managed WebDriver. Site: Wikipedia
+2025-05-25 04:56:55,001 | INFO     | info:56 | Starting WikipediaSiteModule workflow
+2025-05-25 04:56:55,001 | INFO     | info:56 | Executing operation 'get_data' on Wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None}
+2025-05-25 04:56:55,001 | INFO     | info:56 | Wikipedia 'get_data' started. Query/URL: 'Biology', Extract Text: True, Download Images > 0px
+2025-05-25 04:56:55,004 | INFO     | info:56 | Navigating to Wikipedia URL: https://en.wikipedia.org/w/index.php?search=Biology
+2025-05-25 04:56:55,782 | INFO     | info:56 | Successfully navigated to: https://en.wikipedia.org/wiki/Biology
+2025-05-25 04:56:58,340 | INFO     | info:56 | Parsing text content and links from https://en.wikipedia.org/wiki/Biology...
+2025-05-25 04:56:58,474 | INFO     | info:56 | Found 1 sections with text and links.
+2025-05-25 04:56:58,474 | ERROR    | error:64 | Error during operation 'get_data' on Wikipedia: 'StealthLogger' object has no attribute 'get_formatted_timestamp'
+Traceback (most recent call last):
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/base_site.py", line 102, in execute
+    return operation_method(**params) # Pass remaining params
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/wikipedia.py", line 131, in get_data
+    run_id_timestamp = self.log.get_formatted_timestamp(format_str='%Y%m%d_%H%M%S')
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'StealthLogger' object has no attribute 'get_formatted_timestamp'
+2025-05-25 04:56:58,478 | ERROR    | error:64 | Wikipedia Error: Operation 'get_data' failed: 'StealthLogger' object has no attribute 'get_formatted_timestamp' (URL: https://en.wikipedia.org/wiki/Biology)
+2025-05-25 04:56:58,478 | ERROR    | error:64 | Workflow failed: 
+2025-05-25 04:56:58,479 | ERROR    | error:64 | ❌ Wikipedia workflow failed. Error: Operation 'get_data' failed: 'StealthLogger' object has no attribute 'get_formatted_timestamp'
+2025-05-25 04:56:58,481 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 04:57:16,189 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 04:57:16,189 | INFO     | info:56 | Wikipedia command initiated with query: Biology
+2025-05-25 04:57:16,189 | INFO     | info:56 | Executing get_data on wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None}
+2025-05-25 04:57:16,189 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 04:57:16,189 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/bot-profiles/default
+2025-05-25 04:57:16,189 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 04:57:17,545 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 04:57:17,545 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 04:57:17,545 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 04:57:17,545 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 04:57:17,545 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: 2).
+2025-05-25 04:57:17,546 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: 2).
+2025-05-25 04:57:17,546 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 04:57:17,546 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 04:57:17,546 | INFO     | info:56 | Generating JS for Canvas fingerprinting noise.
+2025-05-25 04:57:17,546 | INFO     | info:56 | Generating JS for AudioContext fingerprinting noise.
+2025-05-25 04:57:17,546 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 04:57:17,546 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 04:57:17,595 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 04:57:17,597 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 04:57:17,598 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 04:57:17,599 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 04:57:17,600 | INFO     | info:56 | Injecting JS script: canvas_noise
+2025-05-25 04:57:17,601 | INFO     | info:56 | Injecting JS script: audiocontext_noise
+2025-05-25 04:57:17,601 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 04:57:17,612 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 04:57:17,612 | INFO     | info:56 | Constructed SiteConfig for 'wikipedia': URL='https://www.wikipedia.org', Selectors='None'
+2025-05-25 04:57:17,638 | WARNING  | warning:60 | Selector file not found: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/wikipedia_selectors.json. No site-specific selectors loaded for Wikipedia.
+2025-05-25 04:57:17,638 | INFO     | info:56 | BaseSiteModule for Wikipedia initialized with a managed WebDriver.
+2025-05-25 04:57:17,638 | INFO     | info:56 | WikipediaSiteModule initialized with managed WebDriver. Site: Wikipedia
+2025-05-25 04:57:17,638 | INFO     | info:56 | Starting WikipediaSiteModule workflow
+2025-05-25 04:57:17,638 | INFO     | info:56 | Executing operation 'get_data' on Wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None}
+2025-05-25 04:57:17,638 | INFO     | info:56 | Wikipedia 'get_data' started. Query/URL: 'Biology', Extract Text: True, Download Images > 0px
+2025-05-25 04:57:17,646 | INFO     | info:56 | Navigating to Wikipedia URL: https://en.wikipedia.org/w/index.php?search=Biology
+2025-05-25 04:57:18,437 | INFO     | info:56 | Successfully navigated to: https://en.wikipedia.org/wiki/Biology
+2025-05-25 04:57:22,543 | INFO     | info:56 | Parsing text content and links from https://en.wikipedia.org/wiki/Biology...
+2025-05-25 04:57:22,676 | INFO     | info:56 | Found 1 sections with text and links.
+2025-05-25 04:57:22,679 | INFO     | info:56 | Text content and links saved to /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/output/wikipedia_runs/Biology_20250525_045722/text_content.json
+2025-05-25 04:57:22,682 | INFO     | info:56 | Workflow completed successfully in 5.04s
+2025-05-25 04:57:22,724 | INFO     | info:56 | ✅ Wikipedia workflow completed. Output path: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/output/wikipedia_runs/Biology_20250525_045722
+2025-05-25 04:57:22,727 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 04:57:54,027 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 04:57:54,027 | INFO     | info:56 | Wikipedia command initiated with query: Biology
+2025-05-25 04:57:54,028 | INFO     | info:56 | Executing get_data on wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None}
+2025-05-25 04:57:54,028 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 04:57:54,028 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/bot-profiles/default
+2025-05-25 04:57:54,028 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 04:57:55,347 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 04:57:55,347 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 04:57:55,347 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 04:57:55,347 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 04:57:55,347 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: 2).
+2025-05-25 04:57:55,347 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: 16).
+2025-05-25 04:57:55,347 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 04:57:55,347 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 04:57:55,347 | INFO     | info:56 | Generating JS for Canvas fingerprinting noise.
+2025-05-25 04:57:55,347 | INFO     | info:56 | Generating JS for AudioContext fingerprinting noise.
+2025-05-25 04:57:55,347 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 04:57:55,348 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 04:57:55,398 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 04:57:55,417 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 04:57:55,426 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 04:57:55,428 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 04:57:55,429 | INFO     | info:56 | Injecting JS script: canvas_noise
+2025-05-25 04:57:55,430 | INFO     | info:56 | Injecting JS script: audiocontext_noise
+2025-05-25 04:57:55,431 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 04:57:55,432 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 04:57:55,432 | INFO     | info:56 | Constructed SiteConfig for 'wikipedia': URL='https://www.wikipedia.org', Selectors='None'
+2025-05-25 04:57:55,454 | WARNING  | warning:60 | Selector file not found: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/wikipedia_selectors.json. No site-specific selectors loaded for Wikipedia.
+2025-05-25 04:57:55,454 | INFO     | info:56 | BaseSiteModule for Wikipedia initialized with a managed WebDriver.
+2025-05-25 04:57:55,454 | INFO     | info:56 | WikipediaSiteModule initialized with managed WebDriver. Site: Wikipedia
+2025-05-25 04:57:55,454 | INFO     | info:56 | Starting WikipediaSiteModule workflow
+2025-05-25 04:57:55,454 | INFO     | info:56 | Executing operation 'get_data' on Wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None}
+2025-05-25 04:57:55,454 | INFO     | info:56 | Wikipedia 'get_data' started. Query/URL: 'Biology', Extract Text: True, Download Images > 0px
+2025-05-25 04:57:55,457 | INFO     | info:56 | Navigating to Wikipedia URL: https://en.wikipedia.org/w/index.php?search=Biology
+2025-05-25 04:57:56,227 | INFO     | info:56 | Successfully navigated to: https://en.wikipedia.org/wiki/Biology
+2025-05-25 04:57:58,346 | INFO     | info:56 | Parsing text content and links from https://en.wikipedia.org/wiki/Biology...
+2025-05-25 04:57:58,483 | INFO     | info:56 | Text content and links saved to /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/output/wikipedia_runs/Biology_20250525_045758/text_content.json
+2025-05-25 04:57:58,483 | INFO     | info:56 | Successfully parsed 1 sections with text and links.
+2025-05-25 04:57:58,486 | INFO     | info:56 | Workflow completed successfully in 3.03s
+2025-05-25 04:57:58,509 | INFO     | info:56 | ✅ Wikipedia workflow completed. Output path: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/output/wikipedia_runs/Biology_20250525_045758
+2025-05-25 04:57:58,511 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 04:59:04,629 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 04:59:04,630 | INFO     | info:56 | Wikipedia command initiated with query: Biology
+2025-05-25 04:59:04,630 | INFO     | info:56 | Executing get_data on wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None, 'exploration_depth': 1, 'max_pages_to_explore': 3, 'keywords_to_follow': ['genetics', 'evolution']}
+2025-05-25 04:59:04,630 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 04:59:04,630 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/bot-profiles/default
+2025-05-25 04:59:04,630 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 04:59:05,754 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 04:59:05,755 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 04:59:05,755 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 04:59:05,755 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 04:59:05,755 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: 4).
+2025-05-25 04:59:05,758 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: 16).
+2025-05-25 04:59:05,758 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 04:59:05,758 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 04:59:05,758 | INFO     | info:56 | Generating JS for Canvas fingerprinting noise.
+2025-05-25 04:59:05,758 | INFO     | info:56 | Generating JS for AudioContext fingerprinting noise.
+2025-05-25 04:59:05,758 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 04:59:05,758 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 04:59:05,840 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 04:59:05,848 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 04:59:05,871 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 04:59:05,872 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 04:59:05,873 | INFO     | info:56 | Injecting JS script: canvas_noise
+2025-05-25 04:59:05,875 | INFO     | info:56 | Injecting JS script: audiocontext_noise
+2025-05-25 04:59:05,876 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 04:59:05,877 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 04:59:05,877 | INFO     | info:56 | Constructed SiteConfig for 'wikipedia': URL='https://www.wikipedia.org', Selectors='None'
+2025-05-25 04:59:05,902 | WARNING  | warning:60 | Selector file not found: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/wikipedia_selectors.json. No site-specific selectors loaded for Wikipedia.
+2025-05-25 04:59:05,902 | INFO     | info:56 | BaseSiteModule for Wikipedia initialized with a managed WebDriver.
+2025-05-25 04:59:05,902 | INFO     | info:56 | WikipediaSiteModule initialized with managed WebDriver. Site: Wikipedia
+2025-05-25 04:59:05,902 | INFO     | info:56 | Starting WikipediaSiteModule workflow
+2025-05-25 04:59:05,902 | INFO     | info:56 | Executing operation 'get_data' on Wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None, 'exploration_depth': 1, 'max_pages_to_explore': 3, 'keywords_to_follow': ['genetics', 'evolution']}
+2025-05-25 04:59:05,902 | INFO     | info:56 | Wikipedia 'get_data' started. Query/URL: 'Biology', Depth: 1, Pages Visited: 1/3
+2025-05-25 04:59:05,906 | INFO     | info:56 | Navigating to Wikipedia URL: https://en.wikipedia.org/w/index.php?search=Biology
+2025-05-25 04:59:06,653 | INFO     | info:56 | Successfully navigated to: https://en.wikipedia.org/wiki/Biology
+2025-05-25 04:59:09,181 | INFO     | info:56 | Parsing text content and links from https://en.wikipedia.org/wiki/Biology...
+2025-05-25 04:59:09,314 | INFO     | info:56 | Text content and links saved to /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/output/wikipedia_runs/Biology_20250525_045909_311573/text_content.json
+2025-05-25 04:59:09,314 | INFO     | info:56 | Successfully parsed 1 sections for https://en.wikipedia.org/wiki/Biology.
+2025-05-25 04:59:09,314 | INFO     | info:56 | Starting exploration from https://en.wikipedia.org/wiki/Biology (depth 1, keywords: ['genetics', 'evolution'])
+2025-05-25 04:59:09,314 | INFO     | info:56 | Exploring link 1/6: https://en.wikipedia.org/wiki/Evolution (Depth remaining: 0)
+2025-05-25 04:59:09,314 | INFO     | info:56 | Already visited or processing: https://en.wikipedia.org/wiki/Evolution. Skipping.
+2025-05-25 04:59:09,314 | INFO     | info:56 | Max pages (3) reached during link iteration. Stopping further exploration.
+2025-05-25 04:59:09,315 | INFO     | info:56 | Workflow completed successfully in 3.41s
+2025-05-25 04:59:09,341 | INFO     | info:56 | ✅ Wikipedia workflow completed. Output path: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/output/wikipedia_runs/Biology_20250525_045909_311573
+2025-05-25 04:59:09,343 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 04:59:55,621 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 04:59:55,621 | INFO     | info:56 | Wikipedia command initiated with query: Biology
+2025-05-25 04:59:55,621 | INFO     | info:56 | Executing get_data on wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None, 'exploration_depth': 1, 'max_pages_to_explore': 3, 'keywords_to_follow': ['genetics', 'evolution']}
+2025-05-25 04:59:55,621 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 04:59:55,621 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/bot-profiles/default
+2025-05-25 04:59:55,621 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 04:59:56,662 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 04:59:56,663 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 04:59:56,663 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 04:59:56,663 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 04:59:56,663 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: 16).
+2025-05-25 04:59:56,663 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: 8).
+2025-05-25 04:59:56,663 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 04:59:56,663 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 04:59:56,663 | INFO     | info:56 | Generating JS for Canvas fingerprinting noise.
+2025-05-25 04:59:56,663 | INFO     | info:56 | Generating JS for AudioContext fingerprinting noise.
+2025-05-25 04:59:56,663 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 04:59:56,663 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 04:59:56,728 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 04:59:56,729 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 04:59:56,739 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 04:59:56,759 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 04:59:56,767 | INFO     | info:56 | Injecting JS script: canvas_noise
+2025-05-25 04:59:56,768 | INFO     | info:56 | Injecting JS script: audiocontext_noise
+2025-05-25 04:59:56,769 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 04:59:56,770 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 04:59:56,770 | INFO     | info:56 | Constructed SiteConfig for 'wikipedia': URL='https://www.wikipedia.org', Selectors='None'
+2025-05-25 04:59:56,792 | WARNING  | warning:60 | Selector file not found: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/wikipedia_selectors.json. No site-specific selectors loaded for Wikipedia.
+2025-05-25 04:59:56,792 | INFO     | info:56 | BaseSiteModule for Wikipedia initialized with a managed WebDriver.
+2025-05-25 04:59:56,792 | INFO     | info:56 | WikipediaSiteModule initialized with managed WebDriver. Site: Wikipedia
+2025-05-25 04:59:56,792 | INFO     | info:56 | Starting WikipediaSiteModule workflow
+2025-05-25 04:59:56,792 | INFO     | info:56 | Executing operation 'get_data' on Wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None, 'exploration_depth': 1, 'max_pages_to_explore': 3, 'keywords_to_follow': ['genetics', 'evolution']}
+2025-05-25 04:59:56,792 | INFO     | info:56 | Wikipedia 'get_data' started. Query/URL: 'Biology', Depth: 1, Processing page #1/3
+2025-05-25 04:59:56,815 | INFO     | info:56 | Navigating to Wikipedia URL: https://en.wikipedia.org/w/index.php?search=Biology
+2025-05-25 04:59:57,580 | INFO     | info:56 | Successfully navigated to: https://en.wikipedia.org/wiki/Biology
+2025-05-25 05:00:01,959 | INFO     | info:56 | Parsing text content and links from https://en.wikipedia.org/wiki/Biology...
+2025-05-25 05:00:02,095 | INFO     | info:56 | Text content and links saved to /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/output/wikipedia_runs/Biology_20250525_050002_092327/text_content.json
+2025-05-25 05:00:02,095 | INFO     | info:56 | Successfully parsed 1 sections for https://en.wikipedia.org/wiki/Biology.
+2025-05-25 05:00:02,095 | INFO     | info:56 | Starting exploration from https://en.wikipedia.org/wiki/Biology (depth 1, keywords: ['genetics', 'evolution'])
+2025-05-25 05:00:02,095 | INFO     | info:56 | Exploring link 1/6: https://en.wikipedia.org/wiki/Evolution (Depth remaining: 0)
+2025-05-25 05:00:02,095 | INFO     | info:56 | Wikipedia 'get_data' started. Query/URL: 'https://en.wikipedia.org/wiki/Evolution', Depth: 0, Processing page #3/3
+2025-05-25 05:00:02,097 | INFO     | info:56 | Navigating to Wikipedia URL: https://en.wikipedia.org/wiki/Evolution
+2025-05-25 05:00:02,648 | INFO     | info:56 | Successfully navigated to: https://en.wikipedia.org/wiki/Evolution
+2025-05-25 05:00:07,166 | INFO     | info:56 | Parsing text content and links from https://en.wikipedia.org/wiki/Evolution...
+2025-05-25 05:00:07,364 | INFO     | info:56 | Text content and links saved to /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/output/wikipedia_runs/Evolution_20250525_050007_361976/text_content.json
+2025-05-25 05:00:07,365 | INFO     | info:56 | Successfully parsed 1 sections for https://en.wikipedia.org/wiki/Evolution.
+2025-05-25 05:00:07,365 | INFO     | info:56 | Max pages (3) reached before exploring https://en.wikipedia.org/wiki/Evolutionary_biology. Stopping further exploration from this page.
+2025-05-25 05:00:07,365 | INFO     | info:56 | Workflow completed successfully in 10.57s
+2025-05-25 05:00:07,638 | INFO     | info:56 | ✅ Wikipedia workflow completed. Output path: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/output/wikipedia_runs/Biology_20250525_050002_092327
+2025-05-25 05:00:07,640 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 05:06:26,980 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 05:06:26,980 | INFO     | info:56 | Wikipedia command initiated with query: Biology
+2025-05-25 05:06:26,980 | INFO     | info:56 | Executing get_data on wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None, 'exploration_depth': 1, 'max_pages_to_explore': 3, 'keywords_to_follow': ['genetics', 'evolution']}
+2025-05-25 05:06:26,980 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 05:06:26,980 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/bot-profiles/default
+2025-05-25 05:06:26,980 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 05:06:28,108 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 05:06:28,108 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 05:06:28,108 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 05:06:28,108 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 05:06:28,108 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: 16).
+2025-05-25 05:06:28,108 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: 8).
+2025-05-25 05:06:28,108 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 05:06:28,108 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 05:06:28,108 | INFO     | info:56 | Generating JS for Canvas fingerprinting noise.
+2025-05-25 05:06:28,109 | INFO     | info:56 | Generating JS for AudioContext fingerprinting noise.
+2025-05-25 05:06:28,109 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 05:06:28,109 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 05:06:28,174 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 05:06:28,175 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 05:06:28,176 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 05:06:28,177 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 05:06:28,178 | INFO     | info:56 | Injecting JS script: canvas_noise
+2025-05-25 05:06:28,180 | INFO     | info:56 | Injecting JS script: audiocontext_noise
+2025-05-25 05:06:28,192 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 05:06:28,209 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 05:06:28,209 | INFO     | info:56 | Constructed SiteConfig for 'wikipedia': URL='https://www.wikipedia.org', Selectors='None'
+2025-05-25 05:06:28,233 | WARNING  | warning:60 | Selector file not found: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/wikipedia_selectors.json. No site-specific selectors loaded for Wikipedia.
+2025-05-25 05:06:28,233 | INFO     | info:56 | BaseSiteModule for Wikipedia initialized with a managed WebDriver.
+2025-05-25 05:06:28,233 | INFO     | info:56 | WikipediaSiteModule initialized with managed WebDriver. Site: Wikipedia
+2025-05-25 05:06:28,234 | INFO     | info:56 | Starting WikipediaSiteModule workflow
+2025-05-25 05:06:28,234 | INFO     | info:56 | Executing operation 'get_data' on Wikipedia with params: {'query_or_url': 'Biology', 'extract_text': True, 'download_images_wider_than': 0, 'output_subfolder_name': None, 'exploration_depth': 1, 'max_pages_to_explore': 3, 'keywords_to_follow': ['genetics', 'evolution']}
+2025-05-25 05:06:28,234 | INFO     | info:56 | Wikipedia 'get_data' started. Query/URL: 'Biology', Depth: 1, Processing page #1/3
+2025-05-25 05:06:28,236 | INFO     | info:56 | Navigating to Wikipedia URL: https://en.wikipedia.org/w/index.php?search=Biology
+2025-05-25 05:06:29,008 | INFO     | info:56 | Successfully navigated to: https://en.wikipedia.org/wiki/Biology
+2025-05-25 05:06:31,291 | INFO     | info:56 | Parsing text content and links from https://en.wikipedia.org/wiki/Biology...
+2025-05-25 05:06:31,425 | INFO     | info:56 | Text content and links saved to /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/output/wikipedia_runs/Biology_20250525_050631_422902/Biology_-_Wikipedia_050631_422921/text_content.json
+2025-05-25 05:06:31,425 | INFO     | info:56 | Successfully parsed 1 sections for https://en.wikipedia.org/wiki/Biology.
+2025-05-25 05:06:31,425 | INFO     | info:56 | Starting exploration from https://en.wikipedia.org/wiki/Biology (depth 1, keywords: ['genetics', 'evolution'])
+2025-05-25 05:06:31,426 | INFO     | info:56 | Exploring link 1/6: https://en.wikipedia.org/wiki/Evolution (Depth remaining: 0)
+2025-05-25 05:06:31,426 | INFO     | info:56 | Wikipedia 'get_data' started. Query/URL: 'https://en.wikipedia.org/wiki/Evolution', Depth: 0, Processing page #3/3
+2025-05-25 05:06:31,428 | INFO     | info:56 | Navigating to Wikipedia URL: https://en.wikipedia.org/wiki/Evolution
+2025-05-25 05:06:31,865 | INFO     | info:56 | Successfully navigated to: https://en.wikipedia.org/wiki/Evolution
+2025-05-25 05:06:36,375 | INFO     | info:56 | Parsing text content and links from https://en.wikipedia.org/wiki/Evolution...
+2025-05-25 05:06:36,573 | INFO     | info:56 | Text content and links saved to /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/output/wikipedia_runs/Biology_20250525_050631_422902/Evolution_-_Wikipedia_050636_570189/text_content.json
+2025-05-25 05:06:36,573 | INFO     | info:56 | Successfully parsed 1 sections for https://en.wikipedia.org/wiki/Evolution.
+2025-05-25 05:06:36,573 | INFO     | info:56 | Max pages (3) reached before exploring https://en.wikipedia.org/wiki/Evolutionary_biology. Stopping further exploration from this page.
+2025-05-25 05:06:36,574 | INFO     | info:56 | Workflow completed successfully in 8.34s
+2025-05-25 05:06:36,690 | INFO     | info:56 | ✅ Wikipedia workflow completed. Output path: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/output/wikipedia_runs/Biology_20250525_050631_422902/Biology_-_Wikipedia_050631_422921
+2025-05-25 05:06:36,693 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 05:18:19,515 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 05:18:19,515 | INFO     | info:56 | Executing interact on generic with params: {'url': 'https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html', 'extraction_config': {'type': 'article'}}
+2025-05-25 05:18:19,515 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 05:18:19,516 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/.bot-profiles/default
+2025-05-25 05:18:19,516 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 05:18:20,656 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 05:18:20,656 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 05:18:20,656 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 05:18:20,656 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 05:18:20,656 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: True).
+2025-05-25 05:18:20,656 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: True).
+2025-05-25 05:18:20,656 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 05:18:20,656 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 05:18:20,656 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 05:18:20,656 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 05:18:20,712 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 05:18:20,719 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 05:18:20,744 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 05:18:20,746 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 05:18:20,747 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 05:18:20,748 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 05:18:20,748 | ERROR    | error:64 | System critical failure: sites.base_site.BaseSiteModule.__init__() got multiple values for keyword argument 'site_config'
+Traceback (most recent call last):
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/main.py", line 510, in main
+    results = system.execute_site_workflow(args.site_name, args.operation, **final_operation_params)
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/main.py", line 268, in execute_site_workflow
+    site_module_instance = site_registry.get_module(
+        site_name,  # Pass site_name directly as the first argument
+    ...<3 lines>...
+        site_config=current_site_config # Pass the (optional) SiteConfig instance
+    )
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/base_site.py", line 356, in get_module
+    return module_class(**kwargs)
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/generic_site.py", line 28, in __init__
+    super().__init__(config=config, logger=logger, driver=driver, site_config=site_config_for_init, **kwargs)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: sites.base_site.BaseSiteModule.__init__() got multiple values for keyword argument 'site_config'
+2025-05-25 05:18:20,752 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 05:18:45,768 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 05:18:45,769 | INFO     | info:56 | Executing interact on generic with params: {'url': 'https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html', 'extraction_config': {'type': 'article'}}
+2025-05-25 05:18:45,769 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 05:18:45,769 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/.bot-profiles/default
+2025-05-25 05:18:45,769 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 05:18:46,859 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 05:18:46,859 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 05:18:46,859 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 05:18:46,859 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 05:18:46,859 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: True).
+2025-05-25 05:18:46,859 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: True).
+2025-05-25 05:18:46,859 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 05:18:46,859 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 05:18:46,859 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 05:18:46,859 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 05:18:46,915 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 05:18:46,916 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 05:18:46,917 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 05:18:46,920 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 05:18:46,928 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 05:18:46,946 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 05:18:46,968 | WARNING  | warning:60 | Selector file not found: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/genericsite_selectors.json. No site-specific selectors loaded for GenericSite.
+2025-05-25 05:18:46,968 | INFO     | info:56 | BaseSiteModule for GenericSite initialized with a managed WebDriver.
+2025-05-25 05:18:46,968 | INFO     | info:56 | GenericSiteModule initialized with a managed WebDriver.
+2025-05-25 05:18:46,968 | INFO     | info:56 | Starting GenericSiteModule workflow
+2025-05-25 05:18:46,968 | ERROR    | error:64 | Query parameter is required
+2025-05-25 05:18:46,968 | ERROR    | error:64 | GenericSite Error: Parameter validation failed
+2025-05-25 05:18:46,972 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 05:19:50,837 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 05:19:50,837 | INFO     | info:56 | Executing interact on generic with params: {'url': 'https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html', 'extraction_config': {'type': 'article'}}
+2025-05-25 05:19:50,837 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 05:19:50,837 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/.bot-profiles/default
+2025-05-25 05:19:50,837 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 05:19:51,905 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 05:19:51,906 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 05:19:51,906 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 05:19:51,906 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 05:19:51,906 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: True).
+2025-05-25 05:19:51,906 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: True).
+2025-05-25 05:19:51,906 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 05:19:51,906 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 05:19:51,906 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 05:19:51,906 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 05:19:51,963 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 05:19:51,964 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 05:19:51,965 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 05:19:51,975 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 05:19:51,993 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 05:19:52,002 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 05:19:52,023 | WARNING  | warning:60 | Selector file not found: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/genericsite_selectors.json. No site-specific selectors loaded for GenericSite.
+2025-05-25 05:19:52,023 | INFO     | info:56 | BaseSiteModule for GenericSite initialized with a managed WebDriver.
+2025-05-25 05:19:52,023 | INFO     | info:56 | GenericSiteModule initialized with a managed WebDriver.
+2025-05-25 05:19:52,023 | INFO     | info:56 | Starting GenericSiteModule workflow
+2025-05-25 05:19:52,023 | INFO     | info:56 | Executing operation 'interact' on GenericSite with params: {'url': 'https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html', 'extraction_config': {'type': 'article'}}
+2025-05-25 05:19:52,023 | ERROR    | error:64 | Error during operation 'interact' on GenericSite: 'SystemConfig' object has no attribute 'default_profile_name'
+Traceback (most recent call last):
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/base_site.py", line 102, in execute
+    return operation_method(**params) # Pass remaining params
+  File "/mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/generic_site.py", line 60, in interact
+    profile_name = params.get('profile', self.config.default_profile_name)
+                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: 'SystemConfig' object has no attribute 'default_profile_name'. Did you mean: 'current_profile_name'?
+2025-05-25 05:19:52,028 | ERROR    | error:64 | GenericSite Error: Operation 'interact' failed: 'SystemConfig' object has no attribute 'default_profile_name' (URL: chrome://new-tab-page/)
+2025-05-25 05:19:52,028 | ERROR    | error:64 | Workflow failed: 
+2025-05-25 05:19:52,031 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 05:20:05,221 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 05:20:05,221 | INFO     | info:56 | Executing interact on generic with params: {'url': 'https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html', 'extraction_config': {'type': 'article'}}
+2025-05-25 05:20:05,221 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 05:20:05,222 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/.bot-profiles/default
+2025-05-25 05:20:05,222 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 05:20:06,272 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 05:20:06,272 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 05:20:06,272 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 05:20:06,272 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 05:20:06,272 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: True).
+2025-05-25 05:20:06,272 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: True).
+2025-05-25 05:20:06,272 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 05:20:06,272 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 05:20:06,272 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 05:20:06,272 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 05:20:06,347 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 05:20:06,372 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 05:20:06,373 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 05:20:06,374 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 05:20:06,375 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 05:20:06,376 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 05:20:06,397 | WARNING  | warning:60 | Selector file not found: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/genericsite_selectors.json. No site-specific selectors loaded for GenericSite.
+2025-05-25 05:20:06,398 | INFO     | info:56 | BaseSiteModule for GenericSite initialized with a managed WebDriver.
+2025-05-25 05:20:06,398 | INFO     | info:56 | GenericSiteModule initialized with a managed WebDriver.
+2025-05-25 05:20:06,398 | INFO     | info:56 | Starting GenericSiteModule workflow
+2025-05-25 05:20:06,398 | INFO     | info:56 | Executing operation 'interact' on GenericSite with params: {'url': 'https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html', 'extraction_config': {'type': 'article'}}
+2025-05-25 05:20:06,398 | INFO     | info:56 | Generic interaction started for URL: https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html
+2025-05-25 05:20:06,398 | INFO     | info:56 | Extraction config: {'type': 'article'}
+2025-05-25 05:20:06,401 | INFO     | info:56 | Navigating to: https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html using managed driver.
+2025-05-25 05:20:11,954 | INFO     | info:56 | Successfully navigated to: https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html
+2025-05-25 05:20:11,956 | INFO     | info:56 | Performing 'article' extraction for https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html
+2025-05-25 05:20:12,142 | INFO     | info:56 | Main content scope identified using class:main. Text length: 285
+2025-05-25 05:20:12,143 | INFO     | info:56 | Successfully performed 'article' extraction. Article title: 
+2025-05-25 05:20:12,145 | INFO     | info:56 | Workflow completed successfully in 5.75s
+2025-05-25 05:20:12,148 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 05:20:48,261 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 05:20:48,262 | INFO     | info:56 | Executing interact on generic with params: {'url': 'https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html', 'extraction_config': {'type': 'article'}}
+2025-05-25 05:20:48,262 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 05:20:48,262 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/.bot-profiles/default
+2025-05-25 05:20:48,262 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 05:20:49,353 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 05:20:49,353 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 05:20:49,353 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 05:20:49,353 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 05:20:49,353 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: True).
+2025-05-25 05:20:49,353 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: True).
+2025-05-25 05:20:49,353 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 05:20:49,353 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 05:20:49,353 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 05:20:49,353 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 05:20:49,420 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 05:20:49,422 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 05:20:49,423 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 05:20:49,424 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 05:20:49,425 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 05:20:49,426 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 05:20:49,456 | WARNING  | warning:60 | Selector file not found: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/genericsite_selectors.json. No site-specific selectors loaded for GenericSite.
+2025-05-25 05:20:49,456 | INFO     | info:56 | BaseSiteModule for GenericSite initialized with a managed WebDriver.
+2025-05-25 05:20:49,456 | INFO     | info:56 | GenericSiteModule initialized with a managed WebDriver.
+2025-05-25 05:20:49,456 | INFO     | info:56 | Starting GenericSiteModule workflow
+2025-05-25 05:20:49,456 | INFO     | info:56 | Executing operation 'interact' on GenericSite with params: {'url': 'https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html', 'extraction_config': {'type': 'article'}}
+2025-05-25 05:20:49,456 | INFO     | info:56 | Generic interaction started for URL: https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html
+2025-05-25 05:20:49,456 | INFO     | info:56 | Extraction config: {'type': 'article'}
+2025-05-25 05:20:49,470 | INFO     | info:56 | Navigating to: https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html using managed driver.
+2025-05-25 05:20:53,430 | INFO     | info:56 | Successfully navigated to: https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html
+2025-05-25 05:20:53,432 | INFO     | info:56 | Performing 'article' extraction for https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html
+2025-05-25 05:20:53,687 | INFO     | info:56 | Main content scope identified using class:content. Text length: 890
+2025-05-25 05:20:53,688 | INFO     | info:56 | Successfully performed 'article' extraction. Article title: 
+2025-05-25 05:20:53,690 | INFO     | info:56 | Workflow completed successfully in 4.23s
+2025-05-25 05:20:53,693 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 05:21:20,306 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 05:21:20,306 | INFO     | info:56 | Executing interact on generic with params: {'url': 'https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html', 'extraction_config': {'type': 'article'}}
+2025-05-25 05:21:20,306 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 05:21:20,306 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/.bot-profiles/default
+2025-05-25 05:21:20,306 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 05:21:21,357 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 05:21:21,357 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 05:21:21,357 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 05:21:21,357 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 05:21:21,357 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: True).
+2025-05-25 05:21:21,357 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: True).
+2025-05-25 05:21:21,357 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 05:21:21,357 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 05:21:21,357 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 05:21:21,357 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 05:21:21,418 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 05:21:21,419 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 05:21:21,420 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 05:21:21,422 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 05:21:21,423 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 05:21:21,424 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 05:21:21,449 | WARNING  | warning:60 | Selector file not found: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/genericsite_selectors.json. No site-specific selectors loaded for GenericSite.
+2025-05-25 05:21:21,449 | INFO     | info:56 | BaseSiteModule for GenericSite initialized with a managed WebDriver.
+2025-05-25 05:21:21,449 | INFO     | info:56 | GenericSiteModule initialized with a managed WebDriver.
+2025-05-25 05:21:21,449 | INFO     | info:56 | Starting GenericSiteModule workflow
+2025-05-25 05:21:21,449 | INFO     | info:56 | Executing operation 'interact' on GenericSite with params: {'url': 'https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html', 'extraction_config': {'type': 'article'}}
+2025-05-25 05:21:21,449 | INFO     | info:56 | Generic interaction started for URL: https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html
+2025-05-25 05:21:21,449 | INFO     | info:56 | Extraction config: {'type': 'article'}
+2025-05-25 05:21:21,468 | INFO     | info:56 | Navigating to: https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html using managed driver.
+2025-05-25 05:21:24,412 | INFO     | info:56 | Successfully navigated to: https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html
+2025-05-25 05:21:24,414 | INFO     | info:56 | Performing 'article' extraction for https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html
+2025-05-25 05:21:24,674 | INFO     | info:56 | Main content scope identified using class:main. Text length: 285
+2025-05-25 05:21:24,675 | INFO     | info:56 | Successfully performed 'article' extraction. Article title: 
+2025-05-25 05:21:24,677 | INFO     | info:56 | Workflow completed successfully in 3.23s
+2025-05-25 05:21:24,680 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 05:22:03,901 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 05:22:03,901 | INFO     | info:56 | Executing interact on generic with params: {'url': 'https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html', 'extraction_config': {'type': 'article'}}
+2025-05-25 05:22:03,901 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 05:22:03,901 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/.bot-profiles/default
+2025-05-25 05:22:03,901 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 05:22:04,956 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 05:22:04,956 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 05:22:04,956 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 05:22:04,957 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 05:22:04,957 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: True).
+2025-05-25 05:22:04,957 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: True).
+2025-05-25 05:22:04,957 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 05:22:04,957 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 05:22:04,957 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 05:22:04,957 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 05:22:05,021 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 05:22:05,022 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 05:22:05,023 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 05:22:05,024 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 05:22:05,025 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 05:22:05,026 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 05:22:05,055 | WARNING  | warning:60 | Selector file not found: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/genericsite_selectors.json. No site-specific selectors loaded for GenericSite.
+2025-05-25 05:22:05,055 | INFO     | info:56 | BaseSiteModule for GenericSite initialized with a managed WebDriver.
+2025-05-25 05:22:05,055 | INFO     | info:56 | GenericSiteModule initialized with a managed WebDriver.
+2025-05-25 05:22:05,055 | INFO     | info:56 | Starting GenericSiteModule workflow
+2025-05-25 05:22:05,055 | INFO     | info:56 | Executing operation 'interact' on GenericSite with params: {'url': 'https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html', 'extraction_config': {'type': 'article'}}
+2025-05-25 05:22:05,055 | INFO     | info:56 | Generic interaction started for URL: https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html
+2025-05-25 05:22:05,055 | INFO     | info:56 | Extraction config: {'type': 'article'}
+2025-05-25 05:22:05,068 | INFO     | info:56 | Navigating to: https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html using managed driver.
+2025-05-25 05:22:11,194 | INFO     | info:56 | Successfully navigated to: https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html
+2025-05-25 05:22:11,197 | INFO     | info:56 | Performing 'article' extraction for https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html
+2025-05-25 05:22:11,458 | INFO     | info:56 | Main content scope identified using class:main. Text length: 285
+2025-05-25 05:22:11,459 | INFO     | info:56 | Successfully performed 'article' extraction. Article title: 
+2025-05-25 05:22:11,461 | INFO     | info:56 | Workflow completed successfully in 6.41s
+2025-05-25 05:22:11,465 | INFO     | info:56 | Closing WebDriver...
+2025-05-25 05:22:35,747 | INFO     | info:56 | BasicStealthManager initialized.
+2025-05-25 05:22:35,748 | INFO     | info:56 | Executing interact on generic with params: {'url': 'https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html', 'extraction_config': {'type': 'article'}}
+2025-05-25 05:22:35,748 | INFO     | info:56 | Initializing undetected_chromedriver...
+2025-05-25 05:22:35,748 | INFO     | info:56 | Attempting to use browser profile for undetected_chromedriver: /home/rain/.bot-profiles/default
+2025-05-25 05:22:35,748 | INFO     | info:56 | Getting additional Chrome options from BasicStealthManager (currently none).
+2025-05-25 05:22:36,804 | INFO     | info:56 | undetected_chromedriver initialized successfully.
+2025-05-25 05:22:36,804 | INFO     | info:56 | Applying JS-based stealth measures from BasicStealthManager...
+2025-05-25 05:22:36,804 | INFO     | info:56 | Applying JS-based stealth to driver.
+2025-05-25 05:22:36,804 | INFO     | info:56 | Generating JS for navigator.plugins and mimeTypes spoofing.
+2025-05-25 05:22:36,804 | INFO     | info:56 | Generating JS for navigator.hardwareConcurrency spoofing (value: True).
+2025-05-25 05:22:36,804 | INFO     | info:56 | Generating JS for navigator.deviceMemory spoofing (value: True).
+2025-05-25 05:22:36,805 | INFO     | info:56 | Generating JS for WebGL spoofing (Vendor: Google Inc. (Intel), Renderer: ANGLE (Intel, Intel(R) Iris(R) Xe Graphics, OpenGL ES 3.0 Chromium)).
+2025-05-25 05:22:36,805 | INFO     | info:56 | Generating JS for Permissions API spoofing.
+2025-05-25 05:22:36,805 | INFO     | info:56 | Generating JS to disable WebRTC (RTCPeerConnection).
+2025-05-25 05:22:36,805 | INFO     | info:56 | Injecting JS script: spoof_navigator_plugins_mimeTypes
+2025-05-25 05:22:36,885 | INFO     | info:56 | Injecting JS script: spoof_navigator_hardwareConcurrency
+2025-05-25 05:22:36,890 | INFO     | info:56 | Injecting JS script: spoof_navigator_deviceMemory
+2025-05-25 05:22:36,908 | INFO     | info:56 | Injecting JS script: spoof_webgl_details
+2025-05-25 05:22:36,914 | INFO     | info:56 | Injecting JS script: spoof_permissions_api
+2025-05-25 05:22:36,915 | INFO     | info:56 | Injecting JS script: disable_webrtc
+2025-05-25 05:22:36,916 | INFO     | info:56 | Finished applying JS-based stealth scripts.
+2025-05-25 05:22:36,939 | WARNING  | warning:60 | Selector file not found: /mnt/cstore/cstore/store/AI-ArT/codeAI/BrowserControL01/src/sites/selectors/genericsite_selectors.json. No site-specific selectors loaded for GenericSite.
+2025-05-25 05:22:36,939 | INFO     | info:56 | BaseSiteModule for GenericSite initialized with a managed WebDriver.
+2025-05-25 05:22:36,939 | INFO     | info:56 | GenericSiteModule initialized with a managed WebDriver.
+2025-05-25 05:22:36,939 | INFO     | info:56 | Starting GenericSiteModule workflow
+2025-05-25 05:22:36,940 | INFO     | info:56 | Executing operation 'interact' on GenericSite with params: {'url': 'https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html', 'extraction_config': {'type': 'article'}}
+2025-05-25 05:22:36,940 | INFO     | info:56 | Generic interaction started for URL: https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html
+2025-05-25 05:22:36,940 | INFO     | info:56 | Extraction config: {'type': 'article'}
+2025-05-25 05:22:36,942 | INFO     | info:56 | Navigating to: https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html using managed driver.
+2025-05-25 05:22:42,750 | INFO     | info:56 | Successfully navigated to: https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html
+2025-05-25 05:22:42,752 | INFO     | info:56 | Performing 'article' extraction for https://www.hindustantimes.com/trending/ceo-breaks-silence-after-chicago-sun-times-shares-ai-generated-list-of-fake-books-unacceptable-101747828273285.html
+2025-05-25 05:22:43,016 | WARNING  | warning:60 | Could not identify a specific main content area using heuristics. Falling back to <body>.
+2025-05-25 05:22:43,082 | INFO     | info:56 | Successfully performed 'article' extraction. Article title: CEO breaks silence after Chicago Sun-Times shares AI-generated list of fake books: 'Unacceptable'
+2025-05-25 05:22:43,084 | INFO     | info:56 | Workflow completed successfully in 6.14s
+2025-05-25 05:22:43,557 | INFO     | info:56 | Closing WebDriver...

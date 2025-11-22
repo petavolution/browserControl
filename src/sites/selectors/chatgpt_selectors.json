@@ -1,0 +1,26 @@
+{
+    "site_config": {
+        "base_url": "https://chat.openai.com/",
+        "output_subdir_base": "bot-out/chatgpt",
+        "response_wait_timeout_sec": 120,
+        "response_stability_checks": 3,
+        "response_stability_interval_sec": 2.5,
+        "retry_attempts_for_elements": 3,
+        "retry_pause_sec_for_elements": 2,
+        "login_max_attempts": 1,
+        "login_check_timeout_sec": 15
+    },
+    "login_page": {
+        "identifier_selector": "h1:contains('Welcome back'), h1:contains('Log in to your account')",
+        "username_input_selector": "input[name='username'], input[id='username']",
+        "password_input_selector": "input[name='password'], input[id='password']",
+        "submit_button_selector": "button[type='submit'][class*='login'], button:contains('Continue'), button:contains('Log in')"
+    },
+    "chat_page": {
+        "prompt_textarea_selector": "textarea[id*='prompt' i], textarea[data-id*='request' i]",
+        "submit_button_selector": "button[class*='send' i], button[data-testid*='send' i]",
+        "response_area_selector": "div[class*='prose'] > div, div[class*='message-content' i]",
+        "generating_indicator_selector": "button[aria-label*='stop' i], div[class*='generating' i]",
+        "post_login_indicator_selector": "textarea[id*='prompt' i], div[class*='avatar']"
+    }
+} 

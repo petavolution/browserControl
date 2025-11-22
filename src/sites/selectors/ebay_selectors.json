@@ -1,0 +1,15 @@
+{
+    "search_page": {
+        "search_input": "#gh-search-input",
+        "search_button": "#gh-search-btn"
+    },
+    "results_page": {
+        "results_container": ".s-item",
+        "item_title": ".s-item__title",
+        "item_url_anchor": ".s-item__info > a[href]", 
+        "item_price": ".s-item__price",
+        "item_condition": ".s-item__subtitle",
+        "no_results_message_selector": "//h1[contains(text(),'No exact matches found')]",
+        "next_page_link": ".pagination__next"
+    }
+} 

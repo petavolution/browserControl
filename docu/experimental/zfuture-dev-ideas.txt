@@ -1,0 +1,24 @@
+
+
+
+
+6 Continuous Self-Audit & Patching
+Nightly fingerprint tests: Automate visits to https://bot.sannysoft.com and https://browserleaks.com/webgl to compare scores against a known-good baseline .
+
+UC Detection-Contest monitoring: Subscribe to the GitHub issue thread for ultrafunkamsterdam/undetected-chromedriver and apply community patches within 48 h of new detection reports .
+
+Version-lock & alerts: run uc.TARGET_VERSION_CHECK and notify on Chromium–ChromeDriver mismatches to avoid broken patches .
+
+
+
+
+7 Advanced & Edge-Case Considerations
+
+CAPTCHA telemetry: Detect reCAPTCHA v3 challenges and simulate the pre-challenge mouse drift & idle timing they expect .
+
+Accessibility API detection: On Linux, ensure assistive-technology hooks (AT-SPI/UIA/AX) are disabled or match real user settings .
+
+Frida/V8 instrumentation: For extreme stealth, consider injecting your own runtime patches into Chromium’s V8 engine—but be prepared for breakage on every Chrome update.
+
+
+

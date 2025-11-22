@@ -1,0 +1,41 @@
+
+
+
+
+
+
+
+src/core/stealth_browser.py
+src/core/stealth_browser.py: This file defines the StealthBrowserManager class, which is responsible for managing the undetected-chromedriver instance. Key functionalities include:
+launch_browser: Launches a Chrome browser instance with various stealth options configured. This includes setting a user data directory for profiles, disabling automation-related Blink features, setting a random user agent (using fake-useragent), randomizing viewport size, and configuring language settings. It also applies basic JavaScript stealth patches if enabled in the configuration (e.g., removing navigator.webdriver, basic WebGL spoofing).
+navigate_to: Navigates to a given URL with retry logic and exponential backoff in case of failures.
+get_page_source, execute_script: Wrappers for common Selenium driver actions with error handling.
+session_context: A context manager that handles the lifecycle of a browser session (launching and cleaning up).
+cleanup: Quits the browser driver.
+
+
+
+
+src/core/human_behavior.py: This file defines the HumanBehaviorEngine class, which is crucial for emulating realistic human interactions to avoid bot detection. It includes methods for:
+human_pause: Generates pauses with Gaussian-distributed random timing.
+thinking_pause: Simulates longer pauses for reading or thinking.
+human_type: Types text character by character with variable delays based on character type and occasional "thinking" pauses. It also supports different typing speeds.
+human_click: Performs a click by first scrolling the element into view, then moving the mouse cursor (using pyautogui) with natural timing and jitter to the element's location before clicking. It has a fallback to a standard Selenium click if the pyautogui click fails.
+human_scroll: Scrolls the page in a human-like manner.
+clear_and_type: Clears an input field and then types new text using human_type.
+press_key: Sends a key press (e.g., Enter) with human-like timing.
+
+
+
+
+src/core/dom_interactor.py
+src/core/dom_interactor.py: This file provides the AdaptiveDOMInteractor class, designed for robustly finding and interacting with elements on a web page. Its key features include:
+find_element: Uses multiple strategies to locate an element:
+Checks an internal cache.
+Tries direct selectors (CSS, XPath, ID, class).
+Uses "smart matching" based on element type (input, button), text content, and attributes like placeholder or aria-label.
+Performs content-based analysis using BeautifulSoup to find elements by text content if other methods fail. It can convert BeautifulSoup elements back to Selenium elements.
+_is_visible, _text_matches, _attr_matches: Helper methods to check element visibility and match text/attributes.
+wait_for_element: Waits for an element to be present on the page, using Selenium's explicit waits for direct selectors and falling back to repeated calls to find_element for more complex searches.
+extract_content: Extracts content from the current page. It can extract all visible text or attempt to extract structured data (headings, paragraphs, links, forms) using BeautifulSoup.
+find_input_field, find_submit_button: Specialized methods to find common form elements.

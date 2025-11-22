@@ -1,0 +1,111 @@
+BrowserControL01: System Evolution & Extension Guide
+=====================================================
+
+Version: 0.1
+Date: (Auto-populated on generation - placeholder for now)
+
+**1. Core Philosophy & Guiding Principles**
+
+As BrowserControL01 evolves, all extensions and modifications should adhere to the following core principles:
+
+*   **Modularity & Decoupling:** New features should be implemented as distinct, well-encapsulated modules or classes with clear responsibilities and minimal dependencies on other non-core components. Core services are an exception, as they are designed to be depended upon.
+*   **Simplicity & Focus:** Prioritize clear, straightforward implementations. Each component should do one thing well. Avoid over-engineering.
+*   **Extensibility:** Design components with future enhancements in mind. Use base classes, clear interfaces, and configuration-driven behavior where appropriate.
+*   **Maintainability:** Write clean, well-documented code. Adhere to Python best practices (PEP 8). Aim for file sizes that are manageable (e.g., under 1440 lines as a soft guideline for primary logic files).
+*   **Configuration over Code:** Where possible, prefer external configurations (e.g., JSON files for selectors, parameters in `SystemConfig`) over hardcoding values.
+*   **Stealth and Human Emulation:** All extensions, especially those interacting with websites, must consider how to maintain or enhance the system's ability to evade detection and emulate human behavior.
+*   **Robust Error Handling & Logging:** Implement comprehensive error handling and provide informative logging (using the centralized `StealthLogger`) to aid in debugging and monitoring.
+
+**2. Extending Core Components**
+
+The `src/core/` directory houses the system's foundational services.
+
+*   **2.1. `AdaptiveDOMInteractor` (`src/core/dom_interactor.py`)**
+    *   **Adding New Element Finding Strategies:** If a new general-purpose method for locating elements (e.g., AI-based visual identification) is developed, it can be integrated as a new `_try_...` method. Ensure it returns a `WebElement` and associated metadata (how it was found) so `find_element` can construct an `ExtractedElement`.
+    *   **Enhancing `_soup_to_selenium`:** Improve the heuristics for converting BeautifulSoup elements back to reliable Selenium selectors.
+    *   **Refining Content Analysis (`_try_content_analysis`):** Improve heuristics for identifying elements based on surrounding text or structural patterns.
+
+*   **2.2. `SemanticAnalyzer` (`src/core/semantic_analyzer.py`)**
+    *   **Adding New Heuristic Rules:** The primary method for extension here is adding more sophisticated rules to `analyze_element`. This can involve:
+        *   More complex regex for text patterns (prices, dates, specific phrases).
+        *   Deeper inspection of `ElementProperties` (attributes, ARIA roles, CSS classes).
+        *   Contextual rules (e.g., if a parent element has a certain role).
+        *   Consider a rule-based system or a way to register heuristic functions if it becomes very complex.
+    *   **Improving Confidence Scoring:** Refine how `role_confidence` is assigned based on the strength and specificity of the matching heuristic.
+
+*   **2.3. `HumanBehaviorEngine` (`src/core/human_behavior.py`)**
+    *   **New Interaction Patterns:** Add methods for more diverse human-like interactions (e.g., complex mouse movements, drag-and-drop, attention simulation).
+    *   **Adaptive Timing:** Enhance pausing and typing speed logic to be more context-aware or based on observed site responsiveness.
+
+*   **2.4. `StealthBrowserManager` (`src/core/stealth_browser.py`)**
+    *   **New Browser Types:** If support for other browsers (beyond `undetected-chromedriver`) is needed, this class would need to be refactored to handle different driver initializations.
+    *   **Profile Management:** Enhance browser profile creation, loading, and saving capabilities.
+
+*   **2.5. `SystemConfig` / `SiteConfig` (`src/core/config.py`)**
+    *   **New Configuration Parameters:** Add new fields as needed to support new features, ensuring defaults are sensible.
+
+**3. Adding New Site Modules**
+
+This is a primary extension path for targeting new websites.
+
+1.  **Create Selector File:** In `src/sites/selectors/`, create a `[sitename]_selectors.json` file. Define clear, robust CSS or XPath selectors, grouped by page or component (e.g., `search_page`, `results_page`).
+    ```json
+    {
+      "search_page": {
+        "search_input": "#searchInput",
+        "search_button": "button.search"
+      },
+      "results_page": {
+        "results_container": ["ul.results-list", "div.item-grid"], // Can be list
+        "product_title": "h2.product-title",
+        // ... other item details
+      }
+    }
+    ```
+2.  **Create Site Module:** In `src/sites/`, create `[sitename].py`.
+    *   Define a class inheriting from `BaseSiteModule` (e.g., `MySiteModule(BaseSiteModule)`).
+    *   In `__init__`:
+        *   Call `super().__init__(site_config, **kwargs)`.
+        *   The `site_config` should at least define `name` and `base_url`. Selectors will be loaded by convention.
+        *   Initialize `SemanticAnalyzer` if site-specific semantic enrichment is planned beyond its default capabilities: `self.semantic_analyzer = SemanticAnalyzer(logger=self.log)`.
+    *   Implement necessary operational methods (e.g., `search(self, query: str, **params)`).
+        *   Use `self.navigate_to_site(driver)`.
+        *   Use `self.find_site_element(driver, 'group_key', 'element_key')` or `self.wait_for_site_element(...)` to get elements.
+        *   Use `self.behavior` for interactions.
+        *   Use `self.dom.extract_item_details_from_list(...)` for extracting structured data, providing the container selector key and a dictionary of item detail selector keys.
+        *   If using `SemanticAnalyzer`, call `self.semantic_analyzer.analyze_extracted_item_details(item_details_map)` to enrich extracted data.
+        *   Structure and return results consistently (see existing modules for format).
+3.  **Register Module:** In `src/sites/__init__.py`, import your new module and add it to `site_registry.register('[sitename]', YourSiteModuleClass)`. Also update `BrowserControlSystem._register_site_modules()` in `src/main.py` for direct registration (or ensure dynamic registration if preferred).
+4.  **Update `main.py` CLI (Optional):** If new operations specific to this site are added, consider if CLI arguments in `create_parser()` need adjustment.
+
+**4. Enhancing Security & Stealth**
+
+*   **`BasicStealthManager` (`src/security/basic_stealth.py`)**:
+    *   Add more JavaScript patches to counter common bot detection techniques.
+    *   Ensure patches are robust and don't break site functionality.
+*   **New Security Modules:** If entirely new categories of stealth are developed (e.g., advanced canvas fingerprinting defense, WebGL noise), they could be implemented as new classes in `src/security/` and integrated into `BrowserControlSystem` and `StealthBrowserManager`.
+
+**5. Developing New Workflows**
+
+*   **Create Workflow Class:** In `src/workflows/`, create a new Python file (e.g., `my_custom_workflow.py`) and define a class inheriting from `BaseWorkflow` (if a base exists or makes sense) or as a standalone class.
+*   **Implement `start_execution`:** This method will orchestrate the steps of your workflow, likely using core components like `StealthBrowserManager`, `AdaptiveDOMInteractor`, etc.
+*   **Integration in `main.py`:** Add a new CLI command and corresponding logic in `BrowserControlSystem` to invoke this workflow.
+
+**6. Utilities (`src/utils/`)**
+
+*   If new, broadly applicable utility functions or classes are needed (e.g., for data transformation, advanced file handling), add them here.
+*   Ensure `CustomJsonEncoder` is updated if new non-standard data types are introduced that need custom serialization.
+
+**7. Testing**
+
+*   **Unit Tests:** Add unit tests for new functions and classes, especially for core logic and utility functions.
+*   **Integration Tests:** Create integration tests for new site modules or complex workflows to ensure components work together correctly.
+*   **`if __name__ == '__main__':` blocks:** Continue to use these in modules for quick, isolated testing of that module's functionality during development.
+
+**8. Documentation**
+
+*   **Code Comments:** Add clear docstrings to new classes, methods, and functions.
+*   **This Document:** Update this `system-evolution-01.txt` file if major architectural patterns change or new core extension points are added.
+*   **README:** Keep the main `README.md` updated with high-level project information and usage instructions.
+
+By following these guidelines, BrowserControL01 can evolve into an even more powerful and versatile tool while remaining manageable and true to its original design goals. 

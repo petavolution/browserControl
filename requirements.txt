@@ -1,0 +1,15 @@
+undetected-chromedriver==3.5.5
+selenium==4.32.0
+
+PyAutoGUI==0.9.54
+pillow==11.2.1
+python-xlib==0.33
+pyperclip==1.9.0
+
+fake-useragent==2.2.0
+
+beautifulsoup4==4.13.4
+lxml==5.4.0
+
+httpx[http2]==0.28.1
+cryptography==45.0.1

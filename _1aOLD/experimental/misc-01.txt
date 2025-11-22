@@ -1,0 +1,135 @@
+4 Stealth browser layer
+4.1 Launch code (stealth_browser.py)
+python
+Copy
+Edit
+import undetected_chromedriver as uc, random, pathlib
+from uc_stealth import stealth  # helper file you write
+
+profile = pathlib.Path.home() / "bot-profiles/profileA"
+opts = uc.ChromeOptions()
+opts.add_argument(f'--user-data-dir={profile}')
+opts.add_argument('--start-maximized')
+opts.add_argument(f'--lang=en-US,en;q=0.{random.randint(7,9)}')
+opts.add_argument(f'--window-size={random.randint(1280,1600)},{random.randint(720,950)}')
+opts.add_argument(f'--user-agent={uc.utils.gen_fake_useragent()}')
+
+driver = uc.Chrome(options=opts, headless=False, use_subprocess=True)
+stealth(driver,
+        languages=["en-US","en"],
+        vendor="Google Inc.",
+        platform="Linux x86_64",
+        fix_hairline=True,
+        webgl_vendor="Intel Inc.",
+        renderer="Mesa Intel(R) UHD Graphics")
+UC strips --enable-automation, keeps DevTools closed 
+GitHub
+.
+
+The helper stealth() rewrites WebGL vendor/renderer to match your iGPU 
+WebBrowserTools.com
+The Castle blog
+.
+
+Viewport size changes each run → canvas hash diversity.
+
+4.2 Patching residual JS signals
+javascript
+Copy
+Edit
+// inject at document_start via driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", …)
+Object.defineProperty(navigator, 'plugins', {
+  get: () => window._realPlugins   // copy from the cloned profile
+});
+navigator.permissions.query = (orig => p =>
+     p.name === 'notifications' ? Promise.resolve({state:'granted'}) : orig(p)
+)(navigator.permissions.query);
+navigator.plugins emptiness and all-denied permissions.query are common bot tells 
+Stack Overflow
+MDN Web Docs
+.
+
+5 Behavioural engine (human_input.py)
+Mouse paths – PyAutoGUI with easing curves (easeInOutQuad) and ±4 px jitter 
+PyAutoGUI
+.
+
+Keystroke rhythm – 80–250 ms between chars, gaussian noise.
+
+Scroll ramp – use driver.execute_script("window.scrollBy", …) in 200 px bursts.
+
+Random tab blinks – switch focus, idle 2–5 s, imitate reading.
+
+Behaviour pace > human median (Cloudflare flags < 20 ms average) 
+BrowserStack
+.
+
+6 Smart DOM interaction (dom_adapter.py)
+python
+Copy
+Edit
+from bs4 import BeautifulSoup
+def smart_find(driver, css=None, text=None, regex=None):
+    if css:
+        try:
+            return driver.find_elements(By.CSS_SELECTOR, css)
+        except: pass
+    soup = BeautifulSoup(driver.page_source, "lxml")
+    if text:  return soup.find_all(string=text)
+    if regex: return soup.find_all(string=re.compile(regex, re.I))
+    return []
+Fallback to BeautifulSoup allows fuzzy matching when dynamic IDs break standard selectors.
+
+
+
+
+
+Task-Specific Workflows - Creating site-specific automation modules
+
+
+
+
+
+
+┌── bootstrap.py──────────────┐
+│ env-check · UC auto-update  │
+└────────┬────────────────────┘
+         ▼
+┌── session_manager.py───────────────┐
+│ Clone real profile · UA/viewport   │
+│ JA3 self-test ·    │
+└────────┬───────────────────────────┘
+         ▼
+┌── stealth_browser.py (UC wrapper)──┐
+│ Launch Chrome · patch WebGL etc.   │
+└────────┬───────────────────────────┘
+         ▼
+┌── human_input.py───────────────────┐
+│ PyAutoGUI moves, key jitter        │
+└────────┬───────────────────────────┘
+         ▼
+┌── dom_adapter.py───────────────────┐
+│ smart_find · copy_section helpers  │
+└────────┬───────────────────────────┘
+         ▼
+┌── network_guard.py─────────────────┐
+│ TLS/JA3 monitor · proxy rotate     │
+└────────┬───────────────────────────┘
+         ▼
+┌── monitoring.py────────────────────┐
+│ Fingerprint self-check dashboards  │
+└────────┬───────────────────────────┘
+         ▼
+┌── task_runner.py───────────────────┐
+│ Workflows for Ebay, Amazon, Google │
+└────────────────────────────────────┘
+
+
+
+
+
+
+
+
+
+

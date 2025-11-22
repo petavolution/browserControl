@@ -1,0 +1,72 @@
+{
+  "site_config": {
+    "name": "Google",
+    "base_url": "https://www.google.com",
+    "timeouts": {
+      "page_load": 3,
+      "between_actions": 0.5,
+      "consent_popup_wait_initial": 1.5,
+      "consent_popup_wait_after_action": 1.0,
+      "search_results_load_timeout": 15,
+      "search_results_container_wait": 10,
+      "search_results_populate_wait": 2
+    },
+    "custom_params": {
+      "max_results_default": 10,
+      "extract_snippets_default": true,
+      "consent_check_retries": 1,
+      "consent_check_pause": 0.5,
+      "search_input_retries": 3,
+      "search_input_pause": 0.5
+    }
+  },
+  "consent_page": {
+    "accept_buttons_selectors": [
+      "xpath://button[.//div[contains(text(),'Accept all')]]",
+      "xpath://button[.//div[contains(text(),'I agree')]]",
+      "#L2AGLb",
+      "[aria-label*='Accept all i']", 
+      "xpath://form[contains(@action, 'consent')]//button[span[contains(lower-case(text()), 'accept all')]]",
+      "xpath://div[@role='dialog']//button[count(.//div)=1 and contains(lower-case(.//div/text()), 'accept all')]",
+      "xpath://div[@role='dialog']//button[.//span[contains(lower-case(text()), 'accept all')]]"
+    ],
+    "reject_buttons_selectors": [
+        "xpath://button[.//div[contains(text(),'Reject all')]]",
+        "[aria-label*='Reject all i']",
+        "xpath://form[contains(@action, 'consent')]//button[span[contains(lower-case(text()), 'reject all')]]",
+        "xpath://div[@role='dialog']//button[count(.//div)=1 and contains(lower-case(.//div/text()), 'reject all')]",
+        "xpath://div[@role='dialog']//button[.//span[contains(lower-case(text()), 'reject all')]]"
+    ],
+    "dialog_identifier_selector": "form[action*='UpdateConsent']"
+  },
+  "search_page": {
+    "search_input_selectors": [
+      "textarea[name='q']",
+      "input[name='q']",
+      "input[title='Search']",
+      "textarea[title='Search']",
+      "input[aria-label='Search']",
+      "textarea[aria-label='Search']"
+    ],
+    "search_button_after_type_selectors": [
+      "xpath:(//form[@role='search']//button[@aria-label='Google Search' and @type='submit'])[1]",
+      "xpath:(//input[@name='btnK' and @role='button'])[1]"
+    ]
+  },
+  "results_page": {
+    "results_container_selector": "#search",
+    "result_item_selector": "div.g", 
+    "item_title_selector": "h3",
+    "item_url_anchor_selector": "a[href]",
+    "item_snippet_selectors": [
+      ".VwiC3b",
+      ".s3v9rd",
+      ".st",
+      "xpath:.//div[@data-sncf='1']",
+      "xpath:.//span[contains(@style,'line-height') and string-length(normalize-space(.)) > 50]/ancestor::div[1]",
+      "xpath:.//div[string-length(normalize-space(.)) > 70 and count(descendant::a)=0 and count(descendant::img)=0][1]"
+    ],
+    "next_page_selector": "a#pnnext, a[aria-label='Next']",
+    "did_you_mean_selector": "a.gL9Hy"
+  }
+} 

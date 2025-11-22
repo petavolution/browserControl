@@ -1,0 +1,18 @@
+{
+    "search_page": {
+        "search_input": "#twotabsearchtextbox",
+        "search_button": "#nav-search-submit-button"
+    },
+    "results_page": {
+        "results_container": [
+            "[data-component-type=\"s-search-result\"]", 
+            ".s-result-item", 
+            "div[data-asin]:not(.AdHolder):not([data-component-type=\"s-searchgrid-carousel\"])"
+        ],
+        "product_title": "h2 a span",
+        "product_price_whole": ".a-price-whole",
+        "product_price_fraction": ".a-price-fraction",
+        "product_rating": ".a-icon-alt",
+        "next_page_link": ".s-pagination-next"
+    }
+} 

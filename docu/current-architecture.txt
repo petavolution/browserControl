@@ -1,0 +1,370 @@
+
+
+
+# Core System Architecture of BrowserControL01
+# --------------------------------------------
+# Central Orchestrator: BrowserControlSystem (src/main.py)
+#   - Loads SystemConfig
+#   - Manages WebDriver lifecycle via undetected-chromedriver
+#   - Registers & retrieves site modules via SiteRegistry
+#   - Executes site workflows, handles CLI args (argparse)
+#
+# Global Configuration: SystemConfig (src/core/config.py)
+#   - Paths, human behavior parameters, stealth parameters
+#   - Session defaults, site_details dict, credentials
+#
+# WebDriver Management (undetected-chromedriver)
+#   _initialize_driver():
+#     - uc.Chrome() with stealth patches
+#     - ChromeOptions: user_data_dir, headless, UA override, BasicStealthManager options
+#     - JS-based stealth via BasicStealthManager.apply_js_stealth_to_driver()
+#   get_driver(), close_driver(), is_driver_active()
+#
+# Site Module Management: SiteRegistry (src/sites/__init__.py)
+#   - register(name, module_class)
+#   - get_module(name, config, logger, driver, site_config)
+#
+# CLI (src/main.py)
+#   create_parser(), main(): parse args, dispatch to BrowserControlSystem, ensure close_driver()
+#
+# Stealth Mechanisms:
+#   undetected-chromedriver (patches driver flags, hides navigator.webdriver)
+#   BasicStealthManager (JS spoofing: plugins, hardware, WebGL, permissions, canvas, WebRTC)
+#   HumanBehaviorEngine (typing delays, click jitter, pauses)
+#
+# Common Foundation: BaseSiteModule (src/sites/base_site.py)
+#   - Initializes behavior & dom helpers
+#   - Loads selectors JSON, find_element/with_retry, extract_content, extract_item_details_from_list
+#   - Standardized result objects, health checks
+#
+# SiteConfig (src/core/config.py): per-site params (base_url, selectors path, timeouts)
+#
+# Example Site Module: GoogleSearchModule (src/sites/google.py)
+#   - Inherits BaseSiteModule
+#   - Implements search(): consent popup, input, click, wait, extract via dom.extract_item_details_from_list()
+#
+# Example Site Module: WikipediaSiteModule (src/sites/wikipedia.py)
+#   - Inherits BaseSiteModule
+#   - Parses TOC-based sections, downloads full-res images via httpx + Pillow
+#
+# Workflow Execution Flow:
+#   main.py → BrowserControlSystem.execute_site_workflow() → site module.search/get_data() → return results → close_driver()
+
+
+
+
+
+
+I. Core System Structure & Simplification:
+Centralized Orchestration (BrowserControlSystem in src/main.py):
+Simplification: Provides a single point of entry for managing configurations, the WebDriver lifecycle (via undetected-chromedriver for stealth), and initiating site-specific workflows.
+Focus: Keeps the main script focused on command parsing and system-level operations, delegating site-specific logic to dedicated modules.
+Execution Flow: execute_site_workflow is the primary method for running tasks. It handles:
+  • Retrieving/initializing the stealth-configured WebDriver.
+  • Fetching site-specific configuration (base URL, selector file paths, custom params) from SystemConfig.site_details.
+  • Constructing a SiteConfig object tailored for the specific site and operation.
+  • Using SiteRegistry to get an instance of the appropriate site module, passing it the driver and the SiteConfig.
+  • Calling the designated operation method on the site module (e.g., search, get_data).
+
+Modular Site-Specific Logic (src/sites/):
+Extensibility & Flexibility: Each site (Google, Wikipedia, Amazon, etc.) has its own module (e.g., GoogleSearchModule, WikipediaSiteModule). This makes it easy to add support for new sites or modify existing ones without impacting others.
+Focus: Each module is solely responsible for the logic of interacting with its specific site.
+SiteRegistry (src/sites/__init__.py): Acts as a directory for these modules, allowing BrowserControlSystem to dynamically load the correct one by name.
+
+Common Foundation (BaseSiteModule in src/sites/base_site.py):
+Generalization & Reusability: This is a key component for simplification and code reuse. All site modules inherit from it.
+Core Services:
+  • It receives the driver, system config, logger, and the specific site_config during initialization.
+  • It initializes and provides access to:
+      self.dom = AdaptiveDOMInteractor(...): For robust and advanced DOM manipulations (finding elements with retries, extracting structured data, etc.).
+      self.behavior = HumanBehaviorEngine(...): For emulating human-like interactions (typing, clicking, pauses).
+Selector Management: Handles loading site-specific selectors from JSON files (path provided by site_config.selector_file_path). Methods like get_selector() and find_site_element() provide a standardized way to access and use these selectors.
+Standardized Output: Provides _create_success_result() and _create_error_result() for consistent return values.
+Driver Health: Includes is_driver_active_from_module() to check driver responsiveness.
+
+Configuration Externalization:
+SystemConfig (src/core/config.py): Centralizes global settings, including paths, stealth parameters, default timeouts, and the crucial site_details dictionary which defines parameters for each known site. This makes tweaking behavior easy without code changes.
+Selector JSON Files (e.g., src/sites/selectors/google_search_selectors.json): Site-specific selectors are kept out of the Python code, making them easier to update as websites change.
+
+Universal Components:
+AdaptiveDOMInteractor (src/core/dom_interactor.py): This is a prime example of a smaller, universal component. It encapsulates complex DOM interaction logic, like extract_item_details_from_list, which is powerfully used by GoogleSearchModule (and can be by others) to parse lists of results.
+HumanBehaviorEngine (src/core/human_behavior.py): Another universal component that abstracts the complexities of simulating human-like browser interactions.
+BasicStealthManager (src/security/basic_stealth.py): Provides JS-based and Chrome option-based stealth enhancements, complementing undetected-chromedriver.
+
+
+IV. Meeting Design Goals:
+Simplify Codebase and Execution Flow:
+  • The layered architecture (BrowserControlSystem -> SiteModule -> BaseSiteModule -> Utilities) simplifies by separation of concerns.
+  • Execution flow for site tasks is standardized: main.py -> BrowserControlSystem.execute_site_workflow -> SiteModule specific method.
+Powerful, Flexible, Highly Extendable Framework:
+  • Powerful: undetected-chromedriver, BasicStealthManager, HumanBehaviorEngine, and AdaptiveDOMInteractor provide significant capabilities.
+  • Flexible: Site-specific configurations in SystemConfig and selector JSON files allow adaptation without code changes.
+  • Extendable: Adding a new site module involves:
+      1. Creating a new class inheriting from BaseSiteModule.
+      2. Defining its specific interaction logic (e.g., an interact or get_info method).
+      3. Creating a selectors JSON file for it.
+      4. Adding its configuration to SystemConfig.site_details.
+      5. Registering it in site_registry.
+      6. (Optionally) Adding a new command for it in src/main.py.
+
+Generalizing into Smaller Universal Components:
+  • This is achieved with AdaptiveDOMInteractor, HumanBehaviorEngine, BaseSiteModule itself, and the configuration/selector loading mechanisms. These components are used across different site modules.
+
+
+Maintaining Core Ideal Functional Requirements: The structure supports the stealth, automation, and data extraction requirements effectively.
+
+
+
+
+
+
+
+II. Google Search Module Structure (src/sites/google.py): 
+Inheritance: Correctly inherits from BaseSiteModule and utilizes its services (self.driver, self.dom, self.behavior, selector methods).
+Initialization: Receives driver, config, logger, and the Google-specific site_config.
+Main Method (search):
+  • Clear, sequential logic: navigate -> handle consent -> perform search -> wait for results -> extract results.
+  • Each step is broken down into private helper methods (e.g., _navigate_to_google, _handle_consent_popup, _perform_search_action). This keeps the main search method clean and readable.
+Selector Usage: Consistently uses self.get_selector() and self.find_site_element() (which internally uses self.dom) to interact with page elements defined in google_search_selectors.json. This makes it robust to UI changes.
+Result Extraction (_extract_google_results):
+  • Leverages self.dom.extract_item_details_from_list() effectively. This is a good example of using a generalized component for a common task (extracting data from a list of items).
+  • The configuration for extract_item_details_from_list (defining what 'title', 'url', 'snippet' are within each result item) is built dynamically using selectors fetched for Google.
+Simplicity & Focus: The module is focused purely on Google search. It doesn't mix in unrelated concerns.
+
+III. Wikipedia Site Module Structure (src/sites/wikipedia.py):
+Inheritance: Correctly inherits from BaseSiteModule.
+Initialization: Receives driver, config, logger, and the Wikipedia-specific site_config.
+Main Method (get_data):
+  • Handles the overall workflow: navigation, getting page source, delegating to _parse_page_content and _download_images, and managing output file/directory creation.
+  • The use of self.driver.page_source followed by BeautifulSoup for parsing is a pragmatic approach for content-heavy sites like Wikipedia where direct Selenium interaction for every piece of text is inefficient.
+Content Parsing (_parse_page_content):
+  • This is necessarily complex due to Wikipedia's HTML structure and the goal of TOC-based extraction.
+  • The two-pass approach (initial scan, then TOC-based refinement) is logical. While complex, it's well-contained within this method. Given the specificity of Wikipedia's layout, generalizing this exact parsing logic further would be difficult without losing its effectiveness.
+Image Downloading (_download_images):
+  • Handles the unique challenge of Wikipedia often displaying thumbnails and requiring an extra step to find the original image URL (fetching the "File:" page using httpx). This specific httpx call within the module is justified by the site's behavior.
+  • Uses Pillow for image dimension checking, which is a good practice.
+  • Manages its own output directory structure under output/wikipedia_runs/. This is acceptable as the output (JSON text + image files) is specific to this module's operation.
+Balance: The module effectively uses the Selenium driver for navigation and initial page access, then switches to more specialized tools (BeautifulSoup, httpx, Pillow) for content processing, which is appropriate for the task.
+
+
+
+
+
+
+
+
+
+Core System Architecture of BrowserControL01
+The system is designed to be modular and centrally managed, allowing for robust and stealthy interactions with various websites.
+Central Orchestrator: BrowserControlSystem (src/main.py)
+This class is the heart of the system. It's responsible for:
+Loading the main SystemConfig.
+Managing the WebDriver lifecycle (initialization, retrieval, and closure).
+Registering and retrieving site-specific modules (like GoogleSearchModule, WikipediaSiteModule) via the SiteRegistry.
+Executing workflows for specific sites by calling their respective modules.
+Handling command-line arguments via argparse for different operations.
+Global Configuration: SystemConfig (src/core/config.py)
+This dataclass holds all global configurations:
+Paths (base path, profile directory, log file).
+Human behavior parameters (interaction times, mouse jitter, thinking pauses).
+Browser stealth parameters (WebGL spoofing, platform, languages, user agent).
+Session management defaults (timeouts, retry attempts).
+Site-specific details (site_details dict): This is crucial. It stores configurations for each supported site, including its name, base URL, the filename part for its selector JSON file (e.g., "google\search" for google_search_selectors.json), custom operational parameters (like default max results for Google), and specific timeouts.
+Credentials (like for ChatGPT, though ideally managed via more secure means in production).
+WebDriver Management (using undetected-chromedriver)
+Handled primarily by BrowserControlSystem.
+_initialize_driver():
+Uses undetected_chromedriver (uc.Chrome()) which inherently provides significant stealth against bot detection by patching the driver.
+Configures Chrome options:
+Profile Handling: Loads or creates browser profiles based on config.profile_dir and current_profile_name. This allows for session persistence and individualized site interactions. user_data_dir_for_uc is set to the specific profile path.
+Headless Mode: Controlled by config.headless_mode.
+User-Agent Override: Uses config.user_agent_override if set.
+Stealth Options: Incorporates additional Chrome command-line options provided by BasicStealthManager.
+Applies JavaScript-based stealth measures from BasicStealthManager after the driver is initialized.
+get_driver(): Provides access to the initialized WebDriver instance, creating one if it doesn't exist or is inactive. It can also switch profiles by re-initializing the driver if a profile_name_override is given.
+close_driver(): Properly quits the WebDriver session.
+is_driver_active(): Checks if the driver is responsive.
+Site Module Management: SiteRegistry (src/sites/__init__.py)
+Acts as a central directory for all site-specific modules.
+register(site_name, module_class): Allows modules to be registered under a specific name (e.g., "google", "wikipedia").
+get_module(name, config, logger, driver, site_config, **kwargs): Instantiates and returns the requested site module. It intelligently passes the necessary arguments:
+config: The global SystemConfig.
+logger: The system logger.
+driver: The active WebDriver instance.
+site_config: An instance of SiteConfig (from src/core/config.py, not to be confused with SystemConfig) which holds specific operational parameters for that site for that run, such as its base URL, selector file path, and custom parameters derived from SystemConfig.site_details. This SiteConfig is constructed within BrowserControlSystem.execute_site_workflow() before being passed here. The "generic" site module is a special case and can create its own default SiteConfig if not provided.
+Command-Line Interface (argparse in src/main.py)
+create_parser(): Defines commands and their arguments.
+main() function:
+Parses arguments.
+Loads SystemConfig.
+Initializes BrowserControlSystem.
+Dispatches to the appropriate BrowserControlSystem method based on the command (e.g., execute_site_workflow for "site" and "wikipedia" commands).
+Handles results and ensures close_driver() is called in a finally block.
+Stealth Mechanisms: "Operation Perfect Disguise"
+The system employs a multi-layered approach to stealth:
+undetected-chromedriver (Primary Layer)
+This library automatically patches the ChromeDriver executable to evade many common detection techniques used by websites (e.g., cdc_ variable, navigator properties related to WebDriver). This is the foundation of the stealth capabilities.
+BasicStealthManager (src/security/basic_stealth.py) (Secondary Layer - JS & Options)
+Complements undetected-chromedriver by providing higher-level stealth modifications.
+get_stealth_scripts(): Generates JavaScript snippets that are injected into the page to spoof various browser characteristics. These include:
+navigator.plugins and navigator.mimeTypes
+navigator.hardwareConcurrency and navigator.deviceMemory
+WebGL vendor and renderer (though SystemConfig now has webgl_vendor_override and webgl_renderer_override which are likely preferred by uc or directly set).
+Permissions API (e.g., spoofing notification permissions).
+Canvas and AudioContext fingerprinting (by adding noise).
+Disabling WebRTC (to prevent IP leakage).
+get_additional_chrome_options(): Can provide a list of Chrome command-line arguments for further customization, which are then added to ChromeOptions in BrowserControlSystem._initialize_driver().
+apply_js_stealth_to_driver(driver): This method in BasicStealthManager is called by BrowserControlSystem._initialize_driver() to execute the generated JS stealth scripts on the current page.
+The specific stealth features (e.g., spoofing hardware concurrency, enabling canvas noise) are controlled by boolean flags and value fields within SystemConfig.
+HumanBehaviorEngine (src/core/human_behavior.py) (Behavioral Stealth)
+This component, initialized within BaseSiteModule (and thus available to all site modules), focuses on emulating human-like interaction patterns. This includes:
+Typing: Simulates human typing speed and patterns, including slight delays between characters, longer pauses for spaces/punctuation, and "thinking pauses" during long inputs. Configured via SystemConfig.typing_char_delay_config.
+Clicking: Simulates human mouse clicks with variable durations and small pauses before/after clicks. Configured via SystemConfig.mouse_click_config.
+Pauses: Introduces realistic delays ("thinking time," short pauses) between actions using thinking_pause() and human_pause().
+Mouse Movements: (If implemented and used) Would simulate non-linear mouse paths.
+Scrolling: (If implemented and used) Would simulate human-like scrolling patterns.
+These behaviors make automated actions appear less robotic and more like those of a real user.
+Site Interaction Model (Common Foundation)
+All site-specific modules build upon a common foundation provided by BaseSiteModule.
+BaseSiteModule (src/sites/base_site.py)
+Initialization (__init__):
+Accepts the driver, system config, logger, and a site-specific site_config (instance of SiteConfig).
+Stores these essential components (e.g., self.driver, self.site_config).
+Initializes self.behavior = HumanBehaviorEngine(...) and self.dom = AdaptiveDOMInteractor(...), passing them the driver, config, and logger. This makes human-like behavior and advanced DOM interaction capabilities available to all subclasses.
+Selector Loading (_load_site_selectors):
+Loads CSS/XPath selectors from a JSON file specific to the site.
+The path to this selector file is determined by self.site_config.selector_file_path. If not absolute, it's typically resolved relative to src/sites/selectors/ using a convention like {site_name_lower}_selectors.json or a selector_file_name_part from SystemConfig.site_details.
+Selectors are stored in self._site_selectors_data (a dictionary).
+Element Finding (find_site_element, wait_for_site_element):
+These are crucial methods for robustly locating elements.
+They take group_key and element_key to look up selectors from the loaded JSON data (e.g., group_key='search_page', element_key='search_input').
+A single element_key in the JSON can map to a single selector string OR a list of alternative selector strings (for resilience if one selector breaks). find_site_element will try each one in the list until the element is found.
+They use self.dom.find_element_with_retry() or self.dom.find_elements_with_retry() internally, which handles retries, pauses, and different selector strategies (CSS, XPath).
+wait_for_site_element specifically waits for an element to be present and potentially interactable within a timeout.
+Return ExtractedElement objects (from src/core/structures.py), which wrap the Selenium WebElement and include metadata like how it was found.
+DOM Interaction: AdaptiveDOMInteractor (src/core/dom_interactor.py)
+Instantiated as self.dom in BaseSiteModule.
+Provides methods for more complex DOM operations:
+find_element(), find_elements(): Core finding logic.
+find_element_with_retry(), find_elements_with_retry(): Adds resilience.
+extract_content(): Extracts text or structured data.
+extract_item_details_from_list(): A powerful method for extracting data from a list of similar items (e.g., search results). It takes a container selector (which identifies each repeating item block) and a dictionary defining how to extract specific details (like title, URL, price) from within each item block.
+Standardized Results (_create_success_result, _create_error_result):
+Ensure consistent output format (a dictionary with success boolean, data/error, etc.) from all site modules.
+Driver Health Check (is_driver_active_from_module):
+A simple check (e.g., self.driver.current_url) to see if the WebDriver is still responsive. This is now centralized in BaseSiteModule.
+SiteConfig (src/core/config.py)
+While SystemConfig is global, SiteConfig instances are created per site module instantiation by BrowserControlSystem.execute_site_workflow().
+It holds operational parameters relevant only to that specific site module's current task.
+Key fields: name, base_url, timeouts (site-specific delays), custom_params (e.g., default number of results), and crucially, selector_file_path (the pathlib.Path object for the site's selectors JSON).
+Google Search Workflow: GoogleSearchModule (src/sites/google.py)
+This module handles searching on Google and extracting results.
+Structure and Initialization:
+Inherits from BaseSiteModule.
+__init__(self, driver, config, logger, site_config, **kwargs): Calls super().__init__ and stores the driver. site_config (passed from BrowserControlSystem) will contain Google-specific settings like its base URL ("https://www.google.com") and the path to google_search_selectors.json (derived from selector_file_name_part: "google_search" in SystemConfig.site_details.google).
+Main Operation: search(self, query: str, **params)
+This is the primary method called by BrowserControlSystem.
+Navigation: _navigate_to_google(self, driver) calls self.navigate_to_site(driver) (from BaseSiteModule), which uses self.site_config.base_url.
+Consent Popup Handling (_handle_consent_popup):
+Waits briefly for the popup.
+Uses self.find_site_element() with selectors like dialog_identifier_selector and accept_buttons_selectors (from google_search_selectors.json) to identify and click the consent button.
+accept_buttons_selectors in the JSON is a list of CSS selectors for different consent button variations, and find_site_element tries them until one works.
+Performing Search:
+_find_search_input_element(self, driver): Uses self.find_site_element() with search_input_selectors (another list of potential selectors from JSON) to locate the search bar.
+_perform_search_action(self, driver, query):
+Types the query into the search bar using self.behavior.clear_and_type().
+Attempts to click a search button (found via search_button_after_type_selectors).
+If the button isn't found or clicked, it falls back to pressing Keys.RETURN in the search input using self.behavior.press_key().
+Waiting for Results (_wait_for_search_results_page):
+Uses self.wait_for_site_element() with results_container_selector to ensure the main search results area has loaded.
+Includes a check for a "no results" message if the container doesn't appear, using no_results_message_selector.
+Results Extraction (_extract_google_results)
+This is where the core data extraction happens.
+Selectors: It retrieves selectors for the overall results container (results_container_selector), each individual result item block (result_item_selector), and specific details within each item like title (item_title_selector), URL anchor (item_url_anchor_selector), and snippet (item_snippet_selectors) from google_search_selectors.json.
+self.dom.extract_item_details_from_list():
+This powerful method from AdaptiveDOMInteractor is the workhorse here.
+container_selector: This is set to result_item_selector (e.g., "div.g" or similar from the JSON). This tells the extractor what constitutes a single, repeatable search result block.
+item_detail_selectors: A dictionary is constructed mapping logical names (like 'title', 'url', 'snippet') to their respective selectors and expected extraction type (e.g., 'text', 'attribute:href').
+The method iterates through elements matching result_item_selector (up to max_results), and for each, it tries to extract the configured details.
+Processing: The raw extracted data (which is a list of dictionaries, where each dictionary maps detail names to ExtractedElement objects) is then processed into a cleaner list of dictionaries containing strings for title, URL, and snippet.
+Output: Returns a success dictionary containing the query, extracted results, count, and the final search URL. If no results are found but Google provides a "Did you mean" suggestion, this is also captured and returned.
+Wikipedia Workflow: WikipediaSiteModule (src/sites/wikipedia.py)
+This module is designed for searching Wikipedia, extracting textual content structured by its Table of Contents (TOC), and downloading relevant images.
+Structure and Initialization:
+Inherits from BaseSiteModule.
+__init__(self, driver, config, logger, site_config, **kwargs): Standard setup. The site_config will contain Wikipedia's base URL ("https://www.wikipedia.org") and potentially a selector file path (e.g., for wikipedia_selectors.json if specific Selenium-based interactions beyond navigation are needed, though much of its parsing is HTML-based). The output_subfolder_name for results is now managed via this module.
+Main Operation: get_data(self, query_or_url: str, extract_text: bool, download_images_wider_than: Optional[int], output_subfolder_name: Optional[str], **params)
+This method orchestrates the entire Wikipedia interaction.
+Navigation:
+Uses the helper function _navigate_wikipedia_search(driver, query_or_url, logger) (still present within wikipedia.py). This function constructs the correct Wikipedia URL (either a direct URL or a search URL, defaulting to English Wikipedia) and navigates using driver.get().
+A basic WebDriverWait ensures the page body loads.
+Calls self.wait_for_page_ready() (from BaseWorkflow, inherited by BaseSiteModule) for general page readiness.
+Page Source: Retrieves the full HTML content using self.driver.page_source. This HTML is then used for offline parsing.
+Output Directory Management:
+A unique output directory is created for each run under a main output/wikipedia_runs/ directory (the exact base output path is derived from self.config.base_path / "output" or self.config.output_dir if defined).
+The unique run ID is based on the query_or_url (sanitized) and a timestamp, or a user-provided output_subfolder_name.
+An images subfolder is created within this unique run directory. ensure_directory_exists is used for robust directory creation.
+Text Extraction (_parse_page_content(self, html_content: str))
+This method takes the raw html_content and uses BeautifulSoup with the lxml parser.
+Primary Content Area: It first tries to find the main content div (usually <div id='mw-content-text'>).
+Initial Scan: It performs an initial scan of direct children (<p>, <h2> to <h6>) of the content div to gather text under headings, with "Introduction" as the default first section.
+TOC-based Refinement:
+If a Table of Contents (<div id='toc'>) is found, the extraction is refined:
+It extracts headline texts directly from the TOC <span> elements with class toctext.
+It then iterates through these TOC headlines. For each, it tries to find the corresponding heading element (e.g., <h2><span class="mw-headline">Actual Title</span></h2>) in the main content_div.
+If a matching heading is found, it collects all subsequent <p> (paragraph) tags until the next heading of a similar or higher level (or another heading that's also in the TOC) is encountered.
+This creates a dictionary where keys are section titles from the TOC and values are the concatenated text of their paragraphs.
+The "Introduction" section (text before the first TOC-linked heading) is preserved.
+Fallback: If TOC processing doesn't yield results or no TOC is present, it falls back to the content gathered by the initial, simpler heading scan.
+Returns a dictionary of section_title: section_text.
+Image Downloading (_download_images(self, html_content: str, base_url: str, download_folder: str, min_width: int, logger: StealthLogger))
+Also uses BeautifulSoup to parse the html_content.
+Iterates through all <img> tags.
+URL Handling:
+Resolves relative image URLs using urljoin(base_url, img_src).
+Handles protocol-relative URLs (e.g., //example.com/img.jpg).
+Skips data URIs and SVG images.
+Finding Original Images:
+Critically, it attempts to find the URL of the original, full-resolution image, as Wikipedia often serves thumbnails in <img> tags.
+It looks for a parent <figure> tag and then an <a> tag with class mw-file-description within it. This link usually points to a "File:" page on Wikipedia.
+It then makes a separate httpx.get() request to this "File:" page.
+On the "File:" page, it parses the HTML to find the direct link to the full image (often in a div with id='file' or class fullImageLink).
+This ensures that the dimensions check and download target the best available version of the image.
+Dimension Checking (with Pillow):
+The image data is fetched using httpx.get().
+Pillow (Image.open(io.BytesIO(img_data))) is used to open the image from the downloaded bytes and check its actual img.width.
+Only images with width >= min_width are saved.
+Saving:
+Valid filenames are generated from the image URL.
+An appropriate file extension is added if missing, based on the content-type header or a generic ".img".
+Handles filename collisions by appending a counter (e.g., image_1.jpg).
+Images are saved to the images subfolder within the run's unique output directory.
+Returns a list of paths to the downloaded images.
+Output Packaging
+After text extraction and image downloads, the get_data method:
+Saves the extracted parsed_text_content to text_content.json in the run's output directory.
+Returns a success dictionary containing the page URL, title, the parsed_text_content, a list of downloaded_image_paths, and the output_path for the run.
+Workflow Execution Flow (Example: Google Search)
+User Command: python src/main.py site google search query="AI advancements"
+main.py (main() function):
+Parses arguments.
+Loads SystemConfig (default or from --config file).
+Creates system = BrowserControlSystem(config).
+BrowserControlSystem.execute_site_workflow('google', 'search', query="AI advancements"):
+Logs the request.
+driver = self.get_driver(profile_name_override=...): Initializes or gets the undetected-chromedriver instance, applying stealth configurations from SystemConfig and BasicStealthManager. A profile (e.g., "default" or from --profile) is used.
+SiteConfig Creation:
+site_params = self.config.get_site_configuration_details('google') fetches Google's specific settings from SystemConfig.site_details.
+A SiteConfig instance (current_site_config) is created using these params (e.g., base URL, path to google_search_selectors.json).
+site_module_instance = site_registry.get_module(name='google', ..., driver=driver, site_config=current_site_config):
+The SiteRegistry finds the GoogleSearchModule class and instantiates it, passing the driver, system config, logger, and the newly created SiteConfig for Google.
+site_module_instance.start_execution(query="AI advancements", operation='search') is called (which in BaseSiteModule typically routes to self.search(...)).
+GoogleSearchModule.search(query="AI advancements", ...):
+Performs navigation, consent handling, typing the query, clicking search (using self.behavior and self.dom with selectors from its SiteConfig).
+Calls _extract_google_results() which uses self.dom.extract_item_details_from_list() to get titles, URLs, snippets.
+Returns a results dictionary.
+Back to BrowserControlSystem:
+The results dictionary is returned.
+Back to main.py:
+The results are printed as JSON.
+The finally block in main() calls system.close_driver() to shut down the browser, or ready everything to process the next website interaction.
