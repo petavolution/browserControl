@@ -88,36 +88,73 @@ class BaseSiteModule(BaseWorkflow):
     
     def validate_params(self, **params) -> bool:
         """Base validation for site modules"""
-        if 'query' not in params or not params['query']:
-            self.log.error("Query parameter is required")
+        # Normalize params first
+        normalized = self._normalize_params(params)
+        if 'query' not in normalized and 'query_or_url' not in normalized:
+            self.log.error("Query parameter is required (use 'query', 'q', 'search', 'term', or 'url')")
             return False
         return True
-    
+
+    def _normalize_params(self, params: Dict[str, Any]) -> Dict[str, Any]:
+        """Normalize parameter names using PARAM_ALIASES.
+
+        Maps common parameter name variants to canonical names:
+        - 'q', 'search', 'term' -> 'query'
+        - 'url' -> 'query_or_url'
+        """
+        normalized = dict(params)  # Copy to avoid mutating original
+
+        for alias, canonical in self.PARAM_ALIASES.items():
+            if alias in normalized and canonical not in normalized:
+                normalized[canonical] = normalized.pop(alias)
+
+        return normalized
+
+    def is_driver_active(self) -> bool:
+        """Check if the WebDriver is still active and usable."""
+        if not self.driver:
+            return False
+        try:
+            # Try to access a simple property to verify driver is alive
+            _ = self.driver.current_url
+            return True
+        except Exception:
+            return False
+
+    # Alias for backwards compatibility
+    is_driver_active_from_module = is_driver_active
+
     def execute(self, **params) -> Dict[str, Any]:
-        """Execute site-specific workflow by dynamically calling the operation method."""
-        operation = params.pop('operation', 'search') # Pop operation, keep other params
-        
+        """Execute site-specific workflow by dynamically calling the operation method.
+
+        Normalizes parameters and dispatches to the appropriate operation method.
+        """
+        operation = params.pop('operation', 'search')
+
+        # Normalize parameter names (q -> query, url -> query_or_url, etc.)
+        normalized_params = self._normalize_params(params)
+
         if hasattr(self, operation) and callable(getattr(self, operation)):
             operation_method = getattr(self, operation)
-            # Prepare arguments for the operation method.
-            # It expects specific named args (like query for search, query_or_url for get_data)
-            # and then **params for any extras.
-            # We need to inspect the method signature or make assumptions.
-            # For now, let's assume the primary query-like arg is handled by the method,
-            # and it can take **params for the rest.
-            self.log.info(f"Executing operation '{operation}' on {self.site_config.name} with params: {params}")
+            self.log.info(f"Executing operation '{operation}' on {self.site_config.name} with params: {normalized_params}")
             try:
-                return operation_method(**params) # Pass remaining params
+                return operation_method(**normalized_params)
+            except TypeError as te:
+                # Handle parameter mismatch errors with helpful message
+                self.log.error(f"Parameter error for '{operation}': {te}. Available params: {list(normalized_params.keys())}")
+                return self._create_error_result(f"Parameter error: {te}")
             except Exception as e:
                 self.log.error(f"Error during operation '{operation}' on {self.site_config.name}: {e}", exc_info=True)
                 current_url = None
-                if self.driver and self.is_driver_active_from_module(): # Ensure driver check is safe
+                if self.is_driver_active():
                     try:
                         current_url = self.driver.current_url
-                    except Exception: pass # Driver might be dead
+                    except Exception:
+                        pass
                 return self._create_error_result(f"Operation '{operation}' failed: {str(e)}", current_url=current_url)
         else:
-            self.log.error(f"Unsupported operation: {operation} for site {self.site_config.name}")
+            available_ops = [m for m in dir(self) if not m.startswith('_') and callable(getattr(self, m))]
+            self.log.error(f"Unsupported operation: {operation}. Available: {available_ops[:10]}")
             return self._create_error_result(f"Unsupported operation: {operation}")
     
     def _create_success_result(self, data: Dict[str, Any], message: Optional[str] = None) -> Dict[str, Any]:

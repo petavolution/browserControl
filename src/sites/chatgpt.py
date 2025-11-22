@@ -17,12 +17,12 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from utils.file_utils import ensure_directory_exists
 import undetected_chromedriver as uc # For driver type hint
-from logging import Logger # For logger type hint
+from utils.logger import StealthLogger
 
 class ChatGPTModule(BaseSiteModule):
     """Site module for interacting with ChatGPT."""
 
-    def __init__(self, driver: uc.Chrome, config: SystemConfig, logger: Logger, site_config: SiteConfig, **kwargs):
+    def __init__(self, driver: uc.Chrome, config: SystemConfig, logger: StealthLogger, site_config: SiteConfig, **kwargs):
         super().__init__(driver=driver, config=config, logger=logger, site_config=site_config, **kwargs)
         self.driver = driver
         # self.config, self.log, self.site_config are from super()

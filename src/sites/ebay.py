@@ -14,13 +14,13 @@ from core.structures import ExtractedElement
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 import undetected_chromedriver as uc
-from logging import Logger
+from utils.logger import StealthLogger
 
 
 class EbaySearchModule(BaseSiteModule):
     """eBay Search specialized automation module"""
     
-    def __init__(self, driver: uc.Chrome, config: SystemConfig, logger: Logger, site_config: SiteConfig, **kwargs):
+    def __init__(self, driver: uc.Chrome, config: SystemConfig, logger: StealthLogger, site_config: SiteConfig, **kwargs):
         super().__init__(driver=driver, config=config, logger=logger, site_config=site_config, **kwargs)
         self.driver = driver
         self.log.info(f"EbaySearchModule initialized with managed WebDriver. Site: {self.site_config.name}")
