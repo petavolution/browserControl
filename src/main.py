@@ -16,7 +16,7 @@ import shutil # Import shutil for directory operations
 # Core imports
 from core import SystemConfig
 from core.config import SiteConfig
-from sites import site_registry, GoogleSearchModule, AmazonSearchModule, EbaySearchModule, ChatGPTModule, GenericSiteModule # WikipediaSiteModule is auto-registered
+from sites import site_registry, GoogleSearchModule, AmazonSearchModule, EbaySearchModule, ChatGPTModule, GenericSiteModule, WikipediaSiteModule
 from utils.logger import get_logger
 from utils.serialization import CustomJsonEncoder
 from utils.file_utils import ensure_directory_exists, is_valid_chrome_profile_dir # Added new import
@@ -59,7 +59,8 @@ class BrowserControlSystem:
             ('amazon', AmazonSearchModule),
             ('ebay', EbaySearchModule),
             ('chatgpt', ChatGPTModule),
-            ('generic', GenericSiteModule)
+            ('generic', GenericSiteModule),
+            ('wikipedia', WikipediaSiteModule)
         ]
         
         for site_name, module_class in site_modules:
@@ -305,7 +306,7 @@ class BrowserControlSystem:
         input("Press Enter in this console AFTER you have completely closed your regular Chrome browser... ")
         self.log.info("User acknowledged Chrome closure prompt. Proceeding with session import.")
 
-        source_profile_path = pathlib.Path(source_profile_path_str)
+        source_profile_path = Path(source_profile_path_str)
         if not source_profile_path.exists():
             return {'success': False, 'error': f"Source profile path does not exist: {source_profile_path}"}
         
@@ -345,7 +346,14 @@ class BrowserControlSystem:
             "supported_sites": site_registry.list_supported_sites(),
             "config": self.config.to_dict() if hasattr(self.config, 'to_dict') else vars(self.config),
             "security_available": SECURITY_AVAILABLE,
-            "basic_stealth_enabled": self.security_manager is not None
+            "basic_stealth_enabled": self.security_manager is not None,
+            "features": [
+                "Stealth browser automation",
+                "Human behavior emulation",
+                "Multi-strategy element finding",
+                "Content extraction",
+                "Session persistence"
+            ]
         }
 
 
@@ -520,24 +528,6 @@ def main():
             
             result = system.import_external_session(args.source_profile_path, args.target_bot_profile_name, args.overwrite)
 
-        elif args.command == "site":
-            # Parse key-value parameters
-            site_params = {}
-            if args.parameters:
-                for param_pair in args.parameters:
-                    if '=' not in param_pair:
-                        print(f"Warning: Skipping invalid parameter '{param_pair}'. Expected format: key=value")
-                        continue
-                    key, value = param_pair.split("=", 1)
-                    if value.lower() == 'true': site_params[key] = True
-                    elif value.lower() == 'false': site_params[key] = False
-                    elif value.isdigit(): site_params[key] = int(value)
-                    else:
-                        try: site_params[key] = float(value)
-                        except ValueError: site_params[key] = value
-            
-            result = system.execute_site_workflow(args.site_name, args.operation, **site_params)
-        
         elif args.command == "wikipedia":
             system.log.info(f"Wikipedia command initiated with query: {args.query_or_url}")
             result = system.execute_site_workflow(

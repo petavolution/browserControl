@@ -1,0 +1,33 @@
+{
+  "site_config": {
+    "name": "GenericSite",
+    "base_url": "",
+    "timeouts": {
+      "page_load": 15,
+      "element_wait": 10
+    },
+    "custom_params": {
+      "default_extraction_type": "text"
+    }
+  },
+  "common_elements": {
+    "main_content_selectors": [
+      "main",
+      "article",
+      "#content",
+      ".content",
+      "#main",
+      ".main"
+    ],
+    "input_selectors": [
+      "input[type='text']",
+      "input[type='search']",
+      "textarea"
+    ],
+    "button_selectors": [
+      "button[type='submit']",
+      "input[type='submit']",
+      "button"
+    ]
+  }
+}
