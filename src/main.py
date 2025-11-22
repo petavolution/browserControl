@@ -367,10 +367,12 @@ def create_parser() -> argparse.ArgumentParser:
     # Generic 'site' command parser
     site_parser = subparsers.add_parser("site", help="Interact with a specific site module.")
     site_parser.add_argument("site_name", help="Name of the site module to use (e.g., google, amazon, generic).")
-    site_parser.add_argument("--operation", required=True, help="Operation to perform (e.g., search, get_data, interact).")
+    site_parser.add_argument("query", nargs='?', help="Search query or input text (optional, can also use --query or --params).")
+    site_parser.add_argument("--operation", default="search", help="Operation to perform (e.g., search, get_data, interact). Default: search.")
+    site_parser.add_argument("--query", "-q", dest="query_flag", help="Search query (alternative to positional argument).")
     site_parser.add_argument("--url", type=str, help="URL for operations that require it (e.g., generic interact).")
     site_parser.add_argument("--extraction-config", type=json.loads, help="JSON string for extraction configuration (e.g., '{\"type\": \"article\"').")
-    site_parser.add_argument("--params", type=json.loads, help="JSON string of additional parameters for the operation (e.g., '{\"query\": \"test\"'). These override specific flags like --url if keys conflict.")
+    site_parser.add_argument("--params", type=json.loads, help="JSON string of additional parameters for the operation.")
     site_parser.add_argument("--profile", help="Specific browser profile to use for this operation.")
 
     # Wikipedia-specific command parser
@@ -496,24 +498,24 @@ def main():
         elif args.command == 'site':
             # Ensure params is a dict, even if not provided
             operation_params = args.params if args.params is not None else {}
-            
-            # Prioritize specific flags, allowing --params to override if same key exists
-            # or for --params to provide keys not covered by specific flags.
+
+            # Build params from flags (explicit flags take priority)
             temp_params_from_flags = {}
+
+            # Handle query: positional arg > --query flag > --params
+            query_value = args.query or getattr(args, 'query_flag', None)
+            if query_value:
+                temp_params_from_flags['query'] = query_value
+
             if args.url:
                 temp_params_from_flags['url'] = args.url
             if args.extraction_config:
-                # args.extraction_config is already parsed by json.loads in argparse
-                temp_params_from_flags['extraction_config'] = args.extraction_config 
-            
+                temp_params_from_flags['extraction_config'] = args.extraction_config
+            if args.profile:
+                temp_params_from_flags['profile'] = args.profile
+
             # Merge: explicit flags first, then --params JSON data (which can override)
             final_operation_params = {**temp_params_from_flags, **operation_params}
-
-            if args.profile: # Pass profile explicitly if provided
-                final_operation_params['profile'] = args.profile
-            
-            # The old workaround for args.url for generic interact is no longer needed
-            # as --url is now a formal argument handled above.
 
             results = system.execute_site_workflow(args.site_name, args.operation, **final_operation_params)
             # Output for site command
