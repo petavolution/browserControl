@@ -10,31 +10,27 @@ from typing import Dict, Any, List, Optional
 from .base_site import BaseSiteModule, site_registry
 from core.config import SiteConfig, SystemConfig
 from core.structures import ExtractedElement
-# from core.semantic_analyzer import SemanticAnalyzer # Not used in Ebay module currently
 from selenium.webdriver.common.keys import Keys
-from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 import undetected_chromedriver as uc
 from utils.logger import StealthLogger
 
 
 class EbaySearchModule(BaseSiteModule):
     """eBay Search specialized automation module"""
-    
+
     def __init__(self, driver: uc.Chrome, config: SystemConfig, logger: StealthLogger, site_config: SiteConfig, **kwargs):
         super().__init__(driver=driver, config=config, logger=logger, site_config=site_config, **kwargs)
         self.driver = driver
         self.log.info(f"EbaySearchModule initialized with managed WebDriver. Site: {self.site_config.name}")
-    
+
     def search(self, query: str, **params) -> Dict[str, Any]:
         """Perform eBay item search"""
         self.log.info(f"Starting eBay search for: {query}")
 
-        # profile_name = params.get('profile', "default") # Handled by BrowserControlSystem
         max_results = params.get('max_results', self.site_config.custom_params.get('max_results_default', 10))
         current_url_for_error: Optional[str] = self.site_config.base_url
 
         try:
-            # with self.browser_manager.session_context(profile_name) as driver:
             if not self.driver or not self.is_driver_active_from_module():
                 return self._create_error_result(error_message="Browser driver is not active or available for eBay search", current_url=current_url_for_error)
 

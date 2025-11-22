@@ -11,28 +11,26 @@ import pathlib
 from typing import Dict, Any, Optional, List, Union
 
 from .base_site import BaseSiteModule, site_registry
-from core.config import SiteConfig # Changed
-from core.structures import ExtractedElement # Changed
+from core.config import SiteConfig, SystemConfig
+from core.structures import ExtractedElement
 from selenium.webdriver.common.by import By
-import undetected_chromedriver as uc # For driver type hint
+import undetected_chromedriver as uc
+from utils.logger import StealthLogger
+
 
 class GenericSiteModule(BaseSiteModule):
     """Site module for interacting with generic web pages."""
 
-    def __init__(self, driver: uc.Chrome, config: Any, logger: Any, **kwargs):
+    def __init__(self, driver: uc.Chrome, config: SystemConfig, logger: StealthLogger,
+                 site_config: Optional[SiteConfig] = None, **kwargs):
         # Generic site doesn't rely on a specific selector file by default.
         # Base URL is not fixed, it will be provided per operation.
-        site_config_for_init = SiteConfig(name="GenericSite", base_url="") # Base URL is dynamic
-        
-        # If 'site_config' is in kwargs (likely passed as None from main for generic sites),
-        # remove it to avoid 'multiple values' error when calling super().__init__,
-        # as we are providing our own site_config_for_init.
-        kwargs.pop('site_config', None)
+        # Use provided site_config or create a default one for generic operations
+        effective_site_config = site_config or SiteConfig(name="GenericSite", base_url="")
 
-        # The driver is now passed to BaseSiteModule as well. 
-        # BaseSiteModule.__init__ must be updated to accept and store it, or handle it appropriately.
-        super().__init__(config=config, logger=logger, driver=driver, site_config=site_config_for_init, **kwargs)
-        self.driver = driver # Store driver instance locally if needed, or rely on superclass if it stores it.
+        super().__init__(driver=driver, config=config, logger=logger,
+                         site_config=effective_site_config, **kwargs)
+        self.driver = driver
         self.log.info("GenericSiteModule initialized with a managed WebDriver.")
 
     def interact(self, url: str, input_text: Optional[str] = None, 

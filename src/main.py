@@ -21,11 +21,8 @@ from utils.logger import get_logger
 from utils.serialization import CustomJsonEncoder
 from utils.file_utils import ensure_directory_exists, is_valid_chrome_profile_dir # Added new import
 
-# Selenium & WebDriver Manager for BrowserControlSystem driver management
-# from selenium import webdriver # Standard selenium webdriver
-# from selenium.webdriver.chrome.service import Service as ChromeService # Standard service
-# from webdriver_manager.chrome import ChromeDriverManager # Standard manager
-import undetected_chromedriver as uc # Import undetected_chromedriver
+# Using undetected_chromedriver for anti-detection
+import undetected_chromedriver as uc
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 
 # Security imports (optional)
@@ -104,23 +101,14 @@ class BrowserControlSystem:
         # Headless mode for undetected-chromedriver
         headless_for_uc = self.config.headless_mode
         if headless_for_uc:
-            # options.add_argument("--headless=new") # uc.Chrome takes headless as a direct param
             self.log.info("Headless mode configured for undetected_chromedriver.")
-        else: # Ensure window size is set even for non-headless, can be overridden by user profile later
-             options.add_argument("--window-size=1920,1080")
+        else:
+            options.add_argument("--window-size=1920,1080")
 
         # User-Agent Override
         if self.config.user_agent_override:
             options.add_argument(f"user-agent={self.config.user_agent_override}")
             self.log.info(f"User-Agent override applied: {self.config.user_agent_override}")
-
-        # Placeholder for proxy from self.config
-
-        # BasicStealthManager interaction: uc handles WebDriver flags, cdc_ and CDP issues.
-        # If BasicStealthManager has JS injections or other higher-level stealth, that will be applied later.
-        # For now, we rely on uc for the core driver-level stealth.
-        # if self.security_manager:
-        #     self.log.debug("BasicStealthManager is active, but undetected_chromedriver handles core patches. Review JS-level spoofing from BasicStealthManager later.")
 
         # Add additional Chrome options from BasicStealthManager
         if self.security_manager and hasattr(self.security_manager, 'get_additional_chrome_options'):
@@ -131,26 +119,18 @@ class BrowserControlSystem:
                     options.add_argument(opt)
 
         try:
-            # uc.Chrome parameters: driver_executable_path, version_main, headless, user_data_dir, options
-            # If driver_executable_path is None, uc tries to find or download it.
-            # If version_main is None, uc tries to find the installed Chrome version.
             driver = uc.Chrome(
-                options=options, 
+                options=options,
                 headless=headless_for_uc,
-                user_data_dir=user_data_dir_for_uc,
-                # driver_executable_path=None, # Let uc handle it
-                # version_main=None # Let uc detect Chrome version
-                # enable_cdp_events=True, # enable_cdp_events is True by default in recent uc versions.
-                # suppress_welcome_page=True # suppress_welcome_page is True by default.
+                user_data_dir=user_data_dir_for_uc
             )
             self.log.info("undetected_chromedriver initialized successfully.")
-            
+
             # Apply JS-based stealth measures AFTER driver is initialized
             if self.security_manager and hasattr(self.security_manager, 'apply_js_stealth_to_driver'):
                 self.log.info("Applying JS-based stealth measures from BasicStealthManager...")
                 self.security_manager.apply_js_stealth_to_driver(driver)
-            
-            # No need to call self.security_manager.configure_driver_stealth(driver) if uc is the primary stealth driver
+
             return driver
         except Exception as e:
             self.log.error(f"Failed to initialize undetected_chromedriver: {e}", exc_info=True)

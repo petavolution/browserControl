@@ -359,27 +359,17 @@ class BaseSiteModule(BaseWorkflow):
         return results
     
     def apply_site_specific_delays(self) -> None:
-        """Apply site-specific timing delays"""
-        site_delays = self.site_config.timeouts
-        
-        if 'page_load' in site_delays:
-            self.behavior.thinking_pause()
-        
-        if 'between_actions' in site_delays:
-            delay = site_delays['between_actions']
-            self.behavior.human_pause(delay, delay * 1.5)
+        """Apply site-specific timing delays based on TimeoutConfig"""
+        site_timeouts = self.site_config.timeouts
 
-    def is_driver_active_from_module(self) -> bool:
-        """Checks if the WebDriver instance is active and responsive."""
-        if not self.driver:
-            self.log.debug("Driver not active: No driver instance.")
-            return False
-        try:
-            _ = self.driver.current_url # A lightweight operation to check driver responsiveness
-            return True
-        except Exception as e: # Catches various selenium errors if driver is dead (e.g., WebDriverException)
-            self.log.warning(f"Driver not active: Exception during health check: {type(e).__name__} - {e}")
-            return False
+        # TimeoutConfig is a dataclass - use attribute access, not dict access
+        if hasattr(site_timeouts, 'page_load') and site_timeouts.page_load:
+            self.behavior.thinking_pause()
+
+        # Use default_pause_between_actions if available
+        if hasattr(site_timeouts, 'default_pause_between_actions') and site_timeouts.default_pause_between_actions:
+            delay = site_timeouts.default_pause_between_actions
+            self.behavior.human_pause(delay, delay * 1.5)
 
 
 class SiteRegistry:
