@@ -71,6 +71,7 @@ class SystemConfig:
     headless_mode: bool = False
     user_agent_override: Optional[str] = None
     current_profile_name: Optional[str] = "default" # Default profile to use if not specified
+    languages: List[str] = field(default_factory=lambda: ["en-US", "en"])  # Browser language preferences
 
     # Stealth Configuration for BasicStealthManager
     enable_basic_stealth: bool = True
@@ -228,6 +229,25 @@ class SystemConfig:
             custom_params=site_params.get('custom_params', {}), # Merges with SiteConfig's default_factory
             timeouts=site_params.get('timeouts', TimeoutConfig()) # Uses SiteConfig's default factory if 'timeouts' key missing
         )
+
+    def to_dict(self) -> Dict[str, Any]:
+        """Convert SystemConfig to a dictionary for serialization/display.
+
+        Converts Path objects to strings and handles nested dataclasses.
+        """
+        result = {}
+        for field_name in self.__dataclass_fields__:
+            value = getattr(self, field_name)
+            # Convert Path objects to strings
+            if isinstance(value, pathlib.Path):
+                result[field_name] = str(value)
+            # Skip large/complex nested structures for display
+            elif field_name in ('site_details', 'typing_char_delay_config', 'mouse_click_config',
+                               'human_scroll_config', 'key_press_config', 'mouse_move_config'):
+                result[field_name] = f"<{type(value).__name__}>"
+            else:
+                result[field_name] = value
+        return result
 
 @dataclass
 class WorkflowConfig:
