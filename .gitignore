@@ -40,6 +40,8 @@ profiles/
 # Logs
 *.log
 logs/
+debug-log.txt
+stealth-system.log
 
 # OS
 .DS_Store
