@@ -18,13 +18,21 @@ from core.structures import ExtractedElement
 from core.human_behavior import HumanBehaviorEngine
 from core.dom_interactor import AdaptiveDOMInteractor
 import undetected_chromedriver as uc
-from logging import Logger
+from utils.logger import StealthLogger
 
 
 class BaseSiteModule(BaseWorkflow):
     """Abstract base class for site-specific automation"""
-    
-    def __init__(self, driver: uc.Chrome, config: SystemConfig, logger: Logger, site_config: SiteConfig, **kwargs):
+
+    # Parameter name mapping for different operations
+    PARAM_ALIASES = {
+        'q': 'query',           # Short form for query
+        'url': 'query_or_url',  # URL can be used as query
+        'search': 'query',      # Search term alias
+        'term': 'query',        # Term alias
+    }
+
+    def __init__(self, driver: uc.Chrome, config: SystemConfig, logger: StealthLogger, site_config: SiteConfig, **kwargs):
         super().__init__(config=config, logger=logger, **kwargs)
         self.driver = driver
         self.site_config = site_config
