@@ -342,6 +342,148 @@ class CoreTester:
             "path_serialization": "OK"
         }
 
+    def test_parameter_normalization(self) -> Dict[str, Any]:
+        """Test parameter normalization in BaseSiteModule"""
+        try:
+            from sites.base_site import BaseSiteModule
+
+            # Access the PARAM_ALIASES class variable
+            aliases = BaseSiteModule.PARAM_ALIASES
+            assert 'q' in aliases, "Missing 'q' alias"
+            assert aliases['q'] == 'query', "'q' should map to 'query'"
+            assert 'url' in aliases, "Missing 'url' alias"
+            assert aliases['url'] == 'query_or_url', "'url' should map to 'query_or_url'"
+
+            # Test _normalize_params method indirectly via class inspection
+            assert hasattr(BaseSiteModule, '_normalize_params'), "Missing _normalize_params method"
+            assert callable(getattr(BaseSiteModule, '_normalize_params')), "_normalize_params should be callable"
+
+            return {
+                "PARAM_ALIASES": aliases,
+                "_normalize_params_exists": True
+            }
+        except ImportError as e:
+            return {
+                "status": "SKIPPED",
+                "reason": f"Browser dependencies not installed: {e}"
+            }
+
+    def test_workflow_result_structure(self) -> Dict[str, Any]:
+        """Test WorkflowResult class structure"""
+        try:
+            from workflows.base_workflow import WorkflowResult
+        except ImportError as e:
+            return {
+                "status": "SKIPPED",
+                "reason": f"Browser dependencies not installed: {e}"
+            }
+
+        # Test success result
+        success_result = WorkflowResult(success=True, data={'test': 'data'}, execution_time=1.5)
+        assert success_result.success is True
+        assert success_result.data == {'test': 'data'}
+        assert success_result.execution_time == 1.5
+        assert success_result.errors == []
+
+        # Test error result
+        error_result = WorkflowResult(success=False, errors=['Error message'])
+        assert error_result.success is False
+        assert 'Error message' in error_result.errors
+
+        # Test to_dict
+        result_dict = success_result.to_dict()
+        assert 'success' in result_dict
+        assert 'data' in result_dict
+        assert 'errors' in result_dict
+        assert 'execution_time' in result_dict
+
+        # Test add_error
+        success_result.add_error("New error")
+        assert success_result.success is False
+        assert "New error" in success_result.errors
+
+        return {
+            "WorkflowResult_creation": "OK",
+            "to_dict_works": "OK",
+            "add_error_works": "OK"
+        }
+
+    def test_site_module_interface(self) -> Dict[str, Any]:
+        """Test site module interface requirements"""
+        try:
+            from sites.base_site import BaseSiteModule
+            from abc import ABC
+
+            # Verify BaseSiteModule is abstract
+            assert issubclass(BaseSiteModule, ABC), "BaseSiteModule should be abstract"
+
+            # Check for required methods
+            required_methods = ['search', 'execute', 'validate_params', '_normalize_params',
+                               'is_driver_active', 'find_site_element', 'wait_for_site_element']
+
+            missing_methods = []
+            for method in required_methods:
+                if not hasattr(BaseSiteModule, method):
+                    missing_methods.append(method)
+
+            if missing_methods:
+                return {
+                    "status": "PARTIAL",
+                    "missing_methods": missing_methods
+                }
+
+            return {
+                "is_abstract": True,
+                "required_methods_present": required_methods,
+                "missing_methods": []
+            }
+        except ImportError as e:
+            return {
+                "status": "SKIPPED",
+                "reason": f"Browser dependencies not installed: {e}"
+            }
+
+    def test_main_system_instantiation(self) -> Dict[str, Any]:
+        """Test BrowserControlSystem can be instantiated (no driver creation)"""
+        try:
+            from main import BrowserControlSystem
+            from core.config import SystemConfig
+
+            # Create config without initializing driver
+            config = SystemConfig()
+            config.headless_mode = True
+
+            # Create system - this should not create a driver yet
+            system = BrowserControlSystem(config=config)
+
+            # Verify system state
+            assert system.config is not None, "Config should be set"
+            assert system.log is not None, "Logger should be set"
+            assert system.driver is None, "Driver should not be initialized yet"
+
+            # Verify capabilities method works
+            capabilities = system.list_capabilities()
+            assert 'supported_sites' in capabilities
+            assert 'security_available' in capabilities
+            assert 'features' in capabilities
+
+            # Verify site modules are registered
+            supported = capabilities['supported_sites']
+            expected_sites = ['google', 'amazon', 'ebay', 'wikipedia', 'chatgpt', 'generic']
+            found = [s for s in expected_sites if s in supported]
+
+            return {
+                "system_created": True,
+                "driver_is_none": system.driver is None,
+                "supported_sites": found,
+                "capabilities_keys": list(capabilities.keys())
+            }
+        except ImportError as e:
+            return {
+                "status": "SKIPPED",
+                "reason": f"Dependencies not installed: {e}"
+            }
+
     # =========================================================================
     # Test Runner
     # =========================================================================
@@ -357,6 +499,10 @@ class CoreTester:
             ("Selector Files", self.test_selector_files),
             ("File Utilities", self.test_file_utils),
             ("JSON Serialization", self.test_serialization),
+            ("Parameter Normalization", self.test_parameter_normalization),
+            ("Workflow Result Structure", self.test_workflow_result_structure),
+            ("Site Module Interface", self.test_site_module_interface),
+            ("Main System Instantiation", self.test_main_system_instantiation),
         ]
 
         print("\n" + "=" * 70)
