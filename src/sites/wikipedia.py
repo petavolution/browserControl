@@ -73,9 +73,15 @@ class WikipediaSiteModule(BaseSiteModule):
         self.log.info(f"WikipediaSiteModule initialized with managed WebDriver. Site: {self.site_config.name}")
 
     def validate_params(self, **params) -> bool:
-        """Validate parameters for Wikipedia operations."""
-        if 'query_or_url' not in params or not params['query_or_url']:
-            self.log.error("'query_or_url' parameter is required for Wikipedia module.")
+        """Validate parameters for Wikipedia operations.
+
+        Accepts 'query', 'query_or_url', or any of the standard aliases
+        (q, url, search, term) which get normalized by the base class.
+        """
+        # After normalization by base class, we expect 'query' or 'query_or_url'
+        normalized = self._normalize_params(params)
+        if 'query' not in normalized and 'query_or_url' not in normalized:
+            self.log.error("A query parameter is required for Wikipedia module (use 'query', 'q', 'url', etc.)")
             return False
         return True
 

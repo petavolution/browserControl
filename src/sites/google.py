@@ -16,13 +16,13 @@ from .base_site import BaseSiteModule, site_registry
 from core.config import SiteConfig, SystemConfig # For type hints
 from core.structures import ExtractedElement # Changed
 import undetected_chromedriver as uc # For driver type hint
-from logging import Logger # For logger type hint
+from utils.logger import StealthLogger
 
 
 class GoogleSearchModule(BaseSiteModule):
     """Google Search specialized automation module, inheriting from BaseSiteModule"""
     
-    def __init__(self, driver: uc.Chrome, config: SystemConfig, logger: Logger, site_config: SiteConfig, **kwargs):
+    def __init__(self, driver: uc.Chrome, config: SystemConfig, logger: StealthLogger, site_config: SiteConfig, **kwargs):
         # SiteConfig is now passed in.
         super().__init__(driver=driver, config=config, logger=logger, site_config=site_config, **kwargs)
         self.driver = driver # Store managed driver

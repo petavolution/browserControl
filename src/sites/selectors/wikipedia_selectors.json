@@ -1,0 +1,32 @@
+{
+  "site_config": {
+    "name": "Wikipedia",
+    "base_url": "https://en.wikipedia.org",
+    "timeouts": {
+      "page_load": 10,
+      "content_extraction": 5
+    },
+    "custom_params": {
+      "default_language": "en",
+      "max_images_default": 10
+    }
+  },
+  "search_page": {
+    "search_input_selectors": [
+      "input#searchInput",
+      "input[name='search']",
+      "input.cdx-text-input__input"
+    ],
+    "search_button_selectors": [
+      "button.cdx-button",
+      "input.searchButton"
+    ]
+  },
+  "article_page": {
+    "content_container": "#mw-content-text",
+    "article_title": "h1#firstHeading",
+    "article_body": ".mw-parser-output",
+    "infobox": "table.infobox",
+    "images": ".mw-parser-output img"
+  }
+}

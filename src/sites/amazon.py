@@ -15,13 +15,13 @@ from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException, StaleElementReferenceException
 from selenium.webdriver.common.by import By
 import undetected_chromedriver as uc
-from logging import Logger
+from utils.logger import StealthLogger
 
 
 class AmazonSearchModule(BaseSiteModule):
     """Amazon Search specialized automation module"""
     
-    def __init__(self, driver: uc.Chrome, config: SystemConfig, logger: Logger, site_config: SiteConfig, **kwargs):
+    def __init__(self, driver: uc.Chrome, config: SystemConfig, logger: StealthLogger, site_config: SiteConfig, **kwargs):
         super().__init__(driver=driver, config=config, logger=logger, site_config=site_config, **kwargs)
         self.driver = driver
         self.semantic_analyzer = SemanticAnalyzer(logger=self.log)

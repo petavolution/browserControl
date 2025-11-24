@@ -101,21 +101,36 @@ class BaseWorkflow(ABC):
         
         return result
     
-    def navigate_with_retry(self, driver, url: str) -> bool:
+    def navigate_with_retry(self, driver, url: str, max_retries: int = 3) -> bool:
         """Navigate to URL with retry logic"""
-        return self.browser_manager.navigate_to(url)
-    
-    def wait_for_page_ready(self, driver) -> None:
+        for attempt in range(max_retries):
+            try:
+                driver.get(url)
+                self.wait_for_page_ready(driver)
+                return True
+            except Exception as e:
+                self.log.warning(f"Navigation attempt {attempt + 1}/{max_retries} failed: {e}")
+                if attempt < max_retries - 1:
+                    self.behavior.human_pause(1.0, 2.0)
+        return False
+
+    def wait_for_page_ready(self, driver, timeout: int = 10) -> bool:
         """Wait for page to be ready for interaction"""
         try:
             # Wait for document ready state
-            driver.execute_script("return document.readyState") == "complete"
-            
-            # Additional thinking time
-            self.behavior.thinking_pause()
-            
+            start_time = time.time()
+            while time.time() - start_time < timeout:
+                ready_state = driver.execute_script("return document.readyState")
+                if ready_state == "complete":
+                    # Additional thinking time for human-like behavior
+                    self.behavior.thinking_pause()
+                    return True
+                time.sleep(0.1)
+            self.log.warning("Page did not reach ready state within timeout")
+            return False
         except Exception as e:
             self.log.warning(f"Page ready check failed: {e}")
+            return False
     
     def handle_workflow_error(self, error: Exception, context: str = "") -> None:
         """Handle workflow errors consistently"""

@@ -16,16 +16,13 @@ import shutil # Import shutil for directory operations
 # Core imports
 from core import SystemConfig
 from core.config import SiteConfig
-from sites import site_registry, GoogleSearchModule, AmazonSearchModule, EbaySearchModule, ChatGPTModule, GenericSiteModule # WikipediaSiteModule is auto-registered
+from sites import site_registry, GoogleSearchModule, AmazonSearchModule, EbaySearchModule, ChatGPTModule, GenericSiteModule, WikipediaSiteModule
 from utils.logger import get_logger
 from utils.serialization import CustomJsonEncoder
 from utils.file_utils import ensure_directory_exists, is_valid_chrome_profile_dir # Added new import
 
-# Selenium & WebDriver Manager for BrowserControlSystem driver management
-# from selenium import webdriver # Standard selenium webdriver
-# from selenium.webdriver.chrome.service import Service as ChromeService # Standard service
-# from webdriver_manager.chrome import ChromeDriverManager # Standard manager
-import undetected_chromedriver as uc # Import undetected_chromedriver
+# Using undetected_chromedriver for anti-detection
+import undetected_chromedriver as uc
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 
 # Security imports (optional)
@@ -59,7 +56,8 @@ class BrowserControlSystem:
             ('amazon', AmazonSearchModule),
             ('ebay', EbaySearchModule),
             ('chatgpt', ChatGPTModule),
-            ('generic', GenericSiteModule)
+            ('generic', GenericSiteModule),
+            ('wikipedia', WikipediaSiteModule)
         ]
         
         for site_name, module_class in site_modules:
@@ -103,23 +101,14 @@ class BrowserControlSystem:
         # Headless mode for undetected-chromedriver
         headless_for_uc = self.config.headless_mode
         if headless_for_uc:
-            # options.add_argument("--headless=new") # uc.Chrome takes headless as a direct param
             self.log.info("Headless mode configured for undetected_chromedriver.")
-        else: # Ensure window size is set even for non-headless, can be overridden by user profile later
-             options.add_argument("--window-size=1920,1080")
+        else:
+            options.add_argument("--window-size=1920,1080")
 
         # User-Agent Override
         if self.config.user_agent_override:
             options.add_argument(f"user-agent={self.config.user_agent_override}")
             self.log.info(f"User-Agent override applied: {self.config.user_agent_override}")
-
-        # Placeholder for proxy from self.config
-
-        # BasicStealthManager interaction: uc handles WebDriver flags, cdc_ and CDP issues.
-        # If BasicStealthManager has JS injections or other higher-level stealth, that will be applied later.
-        # For now, we rely on uc for the core driver-level stealth.
-        # if self.security_manager:
-        #     self.log.debug("BasicStealthManager is active, but undetected_chromedriver handles core patches. Review JS-level spoofing from BasicStealthManager later.")
 
         # Add additional Chrome options from BasicStealthManager
         if self.security_manager and hasattr(self.security_manager, 'get_additional_chrome_options'):
@@ -130,26 +119,18 @@ class BrowserControlSystem:
                     options.add_argument(opt)
 
         try:
-            # uc.Chrome parameters: driver_executable_path, version_main, headless, user_data_dir, options
-            # If driver_executable_path is None, uc tries to find or download it.
-            # If version_main is None, uc tries to find the installed Chrome version.
             driver = uc.Chrome(
-                options=options, 
+                options=options,
                 headless=headless_for_uc,
-                user_data_dir=user_data_dir_for_uc,
-                # driver_executable_path=None, # Let uc handle it
-                # version_main=None # Let uc detect Chrome version
-                # enable_cdp_events=True, # enable_cdp_events is True by default in recent uc versions.
-                # suppress_welcome_page=True # suppress_welcome_page is True by default.
+                user_data_dir=user_data_dir_for_uc
             )
             self.log.info("undetected_chromedriver initialized successfully.")
-            
+
             # Apply JS-based stealth measures AFTER driver is initialized
             if self.security_manager and hasattr(self.security_manager, 'apply_js_stealth_to_driver'):
                 self.log.info("Applying JS-based stealth measures from BasicStealthManager...")
                 self.security_manager.apply_js_stealth_to_driver(driver)
-            
-            # No need to call self.security_manager.configure_driver_stealth(driver) if uc is the primary stealth driver
+
             return driver
         except Exception as e:
             self.log.error(f"Failed to initialize undetected_chromedriver: {e}", exc_info=True)
@@ -305,7 +286,7 @@ class BrowserControlSystem:
         input("Press Enter in this console AFTER you have completely closed your regular Chrome browser... ")
         self.log.info("User acknowledged Chrome closure prompt. Proceeding with session import.")
 
-        source_profile_path = pathlib.Path(source_profile_path_str)
+        source_profile_path = Path(source_profile_path_str)
         if not source_profile_path.exists():
             return {'success': False, 'error': f"Source profile path does not exist: {source_profile_path}"}
         
@@ -345,7 +326,14 @@ class BrowserControlSystem:
             "supported_sites": site_registry.list_supported_sites(),
             "config": self.config.to_dict() if hasattr(self.config, 'to_dict') else vars(self.config),
             "security_available": SECURITY_AVAILABLE,
-            "basic_stealth_enabled": self.security_manager is not None
+            "basic_stealth_enabled": self.security_manager is not None,
+            "features": [
+                "Stealth browser automation",
+                "Human behavior emulation",
+                "Multi-strategy element finding",
+                "Content extraction",
+                "Session persistence"
+            ]
         }
 
 
@@ -359,10 +347,12 @@ def create_parser() -> argparse.ArgumentParser:
     # Generic 'site' command parser
     site_parser = subparsers.add_parser("site", help="Interact with a specific site module.")
     site_parser.add_argument("site_name", help="Name of the site module to use (e.g., google, amazon, generic).")
-    site_parser.add_argument("--operation", required=True, help="Operation to perform (e.g., search, get_data, interact).")
+    site_parser.add_argument("query", nargs='?', help="Search query or input text (optional, can also use --query or --params).")
+    site_parser.add_argument("--operation", default="search", help="Operation to perform (e.g., search, get_data, interact). Default: search.")
+    site_parser.add_argument("--query", "-q", dest="query_flag", help="Search query (alternative to positional argument).")
     site_parser.add_argument("--url", type=str, help="URL for operations that require it (e.g., generic interact).")
     site_parser.add_argument("--extraction-config", type=json.loads, help="JSON string for extraction configuration (e.g., '{\"type\": \"article\"').")
-    site_parser.add_argument("--params", type=json.loads, help="JSON string of additional parameters for the operation (e.g., '{\"query\": \"test\"'). These override specific flags like --url if keys conflict.")
+    site_parser.add_argument("--params", type=json.loads, help="JSON string of additional parameters for the operation.")
     site_parser.add_argument("--profile", help="Specific browser profile to use for this operation.")
 
     # Wikipedia-specific command parser
@@ -488,24 +478,24 @@ def main():
         elif args.command == 'site':
             # Ensure params is a dict, even if not provided
             operation_params = args.params if args.params is not None else {}
-            
-            # Prioritize specific flags, allowing --params to override if same key exists
-            # or for --params to provide keys not covered by specific flags.
+
+            # Build params from flags (explicit flags take priority)
             temp_params_from_flags = {}
+
+            # Handle query: positional arg > --query flag > --params
+            query_value = args.query or getattr(args, 'query_flag', None)
+            if query_value:
+                temp_params_from_flags['query'] = query_value
+
             if args.url:
                 temp_params_from_flags['url'] = args.url
             if args.extraction_config:
-                # args.extraction_config is already parsed by json.loads in argparse
-                temp_params_from_flags['extraction_config'] = args.extraction_config 
-            
+                temp_params_from_flags['extraction_config'] = args.extraction_config
+            if args.profile:
+                temp_params_from_flags['profile'] = args.profile
+
             # Merge: explicit flags first, then --params JSON data (which can override)
             final_operation_params = {**temp_params_from_flags, **operation_params}
-
-            if args.profile: # Pass profile explicitly if provided
-                final_operation_params['profile'] = args.profile
-            
-            # The old workaround for args.url for generic interact is no longer needed
-            # as --url is now a formal argument handled above.
 
             results = system.execute_site_workflow(args.site_name, args.operation, **final_operation_params)
             # Output for site command
@@ -520,24 +510,6 @@ def main():
             
             result = system.import_external_session(args.source_profile_path, args.target_bot_profile_name, args.overwrite)
 
-        elif args.command == "site":
-            # Parse key-value parameters
-            site_params = {}
-            if args.parameters:
-                for param_pair in args.parameters:
-                    if '=' not in param_pair:
-                        print(f"Warning: Skipping invalid parameter '{param_pair}'. Expected format: key=value")
-                        continue
-                    key, value = param_pair.split("=", 1)
-                    if value.lower() == 'true': site_params[key] = True
-                    elif value.lower() == 'false': site_params[key] = False
-                    elif value.isdigit(): site_params[key] = int(value)
-                    else:
-                        try: site_params[key] = float(value)
-                        except ValueError: site_params[key] = value
-            
-            result = system.execute_site_workflow(args.site_name, args.operation, **site_params)
-        
         elif args.command == "wikipedia":
             system.log.info(f"Wikipedia command initiated with query: {args.query_or_url}")
             result = system.execute_site_workflow(

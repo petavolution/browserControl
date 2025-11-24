@@ -82,18 +82,27 @@ Examples:
     elif args.command == 'test-google':
         print(f"🔍 Testing Google search for: {args.query}")
         print("⚠️  Note: Google module needs browser session - this is a framework test")
-        
-        # Test Google module structure
+
+        # Test Google module structure (import and selector loading only)
         try:
             from sites.google import GoogleSearchModule
-            
-            google_module = GoogleSearchModule(config=config, logger=logger)
-            selectors = google_module.get_site_selectors()
-            
-            print("✅ Google module initialized")
-            print(f"✅ Configured selectors: {len(selectors)} elements")
-            print("✅ Ready for browser automation")
-            
+            from core.config import SiteConfig
+            import json
+            from pathlib import Path
+
+            # Load selectors directly to test configuration
+            selectors_path = Path(__file__).parent / "src" / "sites" / "selectors" / "google_selectors.json"
+            if selectors_path.exists():
+                with open(selectors_path, 'r') as f:
+                    selectors = json.load(f)
+                print("✅ Google module class imported successfully")
+                print(f"✅ Selector file loaded: {len(selectors)} groups configured")
+                print(f"✅ Groups: {', '.join(selectors.keys())}")
+                print("✅ Ready for browser automation (requires active browser session)")
+            else:
+                print(f"⚠️  Selector file not found: {selectors_path}")
+                print("✅ Google module class imported successfully")
+
         except Exception as e:
             print(f"❌ Google module test failed: {e}")
             import traceback
