@@ -17,16 +17,31 @@ from core.config import WorkflowConfig
 
 class BaseWorkflow(ABC):
     """Abstract base class for automation workflows"""
-    
-    def __init__(self, config: SystemConfig = None, logger: StealthLogger = None):
+
+    def __init__(self, config: SystemConfig = None, logger: StealthLogger = None,
+                 init_components: bool = True):
+        """Initialize workflow.
+
+        Args:
+            config: System configuration
+            logger: Logger instance
+            init_components: If True, initialize browser_manager, behavior, dom.
+                           Subclasses can set False if they manage these differently.
+        """
         self.config = config or SystemConfig()
         self.log = logger or StealthLogger()
-        
-        # Initialize core components
-        self.browser_manager = StealthBrowserManager(self.config, self.log)
-        self.behavior = HumanBehaviorEngine(self.config, self.log)
-        self.dom = AdaptiveDOMInteractor(self.config, self.log)
-        
+
+        # Initialize core components only if requested
+        # Subclasses like BaseSiteModule may handle this themselves
+        if init_components:
+            self.browser_manager = StealthBrowserManager(self.config, self.log)
+            self.behavior = HumanBehaviorEngine(self.config, self.log)
+            self.dom = AdaptiveDOMInteractor(self.config, self.log)
+        else:
+            self.browser_manager = None
+            self.behavior = None
+            self.dom = None
+
         self.start_time = None
         self.execution_data = {}
     
@@ -141,7 +156,8 @@ class BaseWorkflow(ABC):
     def cleanup_resources(self) -> None:
         """Clean up workflow resources"""
         try:
-            self.browser_manager.cleanup()
+            if self.browser_manager:
+                self.browser_manager.cleanup()
         except Exception as e:
             self.log.warning(f"Resource cleanup error: {e}")
 
