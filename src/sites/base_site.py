@@ -33,13 +33,16 @@ class BaseSiteModule(BaseWorkflow):
     }
 
     def __init__(self, driver: uc.Chrome, config: SystemConfig, logger: StealthLogger, site_config: SiteConfig, **kwargs):
-        super().__init__(config=config, logger=logger, **kwargs)
+        # Don't initialize components in BaseWorkflow since we handle them here
+        super().__init__(config=config, logger=logger, init_components=False, **kwargs)
         self.driver = driver
         self.site_config = site_config
         self._site_selectors_data: Dict[str, Dict[str, str]] = self._load_site_selectors()
         self.log.info(f"BaseSiteModule for {self.site_config.name} initialized with a managed WebDriver.")
+        # Initialize components directly (browser_manager not needed since driver is passed)
+        self.browser_manager = None  # Not used in site modules
         self.behavior = HumanBehaviorEngine(config=config, logger=logger) if driver else None
-        self.dom = AdaptiveDOMInteractor(config=config, logger=logger) # DOM interactor doesn't always need driver at init
+        self.dom = AdaptiveDOMInteractor(config=config, logger=logger)
         
     def _load_site_selectors(self, selector_file: Optional[pathlib.Path] = None) -> Dict[str, Dict[str, str]]:
         """Loads site-specific selectors from a JSON file."""
