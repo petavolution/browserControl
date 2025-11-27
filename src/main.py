@@ -9,9 +9,10 @@ Streamlined automation system focused on site-specific workflows.
 import sys
 import json
 import argparse
+import pathlib
 from pathlib import Path
 from typing import Dict, Any, Optional
-import shutil # Import shutil for directory operations
+import shutil
 
 # Core imports
 from core import SystemConfig
@@ -372,22 +373,67 @@ def create_parser() -> argparse.ArgumentParser:
 
 
 def load_config(config_file: Path = None) -> SystemConfig:
-    """Load configuration from file"""
+    """Load and validate configuration from file.
+
+    Implements fail-fast validation to catch configuration errors early.
+    """
     config = SystemConfig()
-    
-    if config_file and config_file.exists():
-        try:
-            with open(config_file, 'r') as f:
-                config_data = json.load(f)
-            
-            # Apply configuration
-            for key, value in config_data.items():
-                if hasattr(config, key):
-                    setattr(config, key, value)
-                    
-        except Exception as e:
-            print(f"Warning: Could not load config file: {e}")
-    
+
+    if not config_file:
+        return config
+
+    if not config_file.exists():
+        raise FileNotFoundError(f"Configuration file not found: {config_file}")
+
+    try:
+        with open(config_file, 'r') as f:
+            config_data = json.load(f)
+    except json.JSONDecodeError as e:
+        raise ValueError(f"Invalid JSON in configuration file {config_file}: {e}")
+    except Exception as e:
+        raise RuntimeError(f"Failed to read configuration file {config_file}: {e}")
+
+    # Validate and apply configuration with type checking
+    invalid_keys = []
+    type_errors = []
+
+    for key, value in config_data.items():
+        if not hasattr(config, key):
+            invalid_keys.append(key)
+            continue
+
+        # Get the current attribute to check its type
+        current_value = getattr(config, key)
+        expected_type = type(current_value)
+
+        # Special handling for Path objects
+        if expected_type == pathlib.Path:
+            try:
+                setattr(config, key, pathlib.Path(value))
+            except Exception as e:
+                type_errors.append(f"{key}: Cannot convert to Path - {e}")
+        # Handle None (uninitialized) attributes
+        elif current_value is None:
+            setattr(config, key, value)
+        # Type checking for other attributes
+        elif not isinstance(value, expected_type):
+            # Allow int -> float conversion
+            if expected_type == float and isinstance(value, int):
+                setattr(config, key, float(value))
+            else:
+                type_errors.append(
+                    f"{key}: Expected {expected_type.__name__}, got {type(value).__name__}"
+                )
+        else:
+            setattr(config, key, value)
+
+    # Report validation errors
+    if invalid_keys:
+        print(f"⚠️  Warning: Unknown configuration keys (ignored): {', '.join(invalid_keys)}")
+
+    if type_errors:
+        raise TypeError(f"Configuration type errors:\n  " + "\n  ".join(type_errors))
+
     return config
 
 
